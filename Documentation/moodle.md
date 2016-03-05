@@ -16,9 +16,10 @@
 
 ##see also:
 
-    - Moodle Function API doc over REST: http://stackoverflow.com/questions/19903456/moodle-function-api-doc-over-rest StackOverflow hat hierzu zwei interessante Antworten
-    - Überblick von verfügbaren Web servicehttps://docs.moodle.org/dev/Web_service_API_functions#Core_web_service_functions
-    - Der Source von den Webservices: https://github.com/moodle/moodle/tree/master/webservice
-    - PHP-REST Client: https://github.com/moodlehq/sample-ws-clients/tree/master/PHP-REST
-    - z.b. URL zum Webservice vom elearning Moodle: https://elearning.fh-joanneum.at/webservice/rest/server.php
+    - Moodle Function API doc over REST: [a link](http://stackoverflow.com/questions/19903456/moodle-function-api-doc-over-rest) 
+      StackOverflow hat hierzu zwei interessante Antworten
+    - Überblick von verfügbaren Web service [a link](https://docs.moodle.org/dev/Web_service_API_functions#Core_web_service_functions)
+    - Der Source von den Webservices: [a link](https://github.com/moodle/moodle/tree/master/webservice)
+    - PHP-REST Client: [a link](https://github.com/moodlehq/sample-ws-clients/tree/master/PHP-REST)
+    - z.b. URL zum Webservice vom elearning Moodle: [a link](https://elearning.fh-joanneum.at/webservice/rest/server.php)
 
