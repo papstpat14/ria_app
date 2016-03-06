@@ -1,6 +1,8 @@
-#Papst
+# Papst
 - Layout erstellen
-#Kainz
+
+# Kainz
 - Moodle aufsetzen
-#Schalk
+
+# Schalk
 - Webservice Client erstellen
