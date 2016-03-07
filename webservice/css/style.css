@@ -26,7 +26,7 @@ nav{
 }
 section{
     background-color: #c0c0c0;
-    height: 100%;
+    height: calc(100vh - 200px);
 
 }
 footer{
