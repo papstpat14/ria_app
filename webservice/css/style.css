@@ -1,0 +1,106 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+html{
+    width: 100%;
+    height: 100%;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+body{
+    width:100%;
+    height: 100%;
+}
+header{
+    background-color: #76b82a;
+    height: 100px;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    line-height: 100px;
+    font-size: 5em;
+}
+nav{
+    background-color: #76b82a;
+    height: 50px;
+}
+section{
+    background-color: #c0c0c0;
+    height: 100%;
+
+}
+footer{
+    color:white;
+    background-color: #232323;
+    height: 100px;
+    position:absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    line-height: 28px;
+}
+
+/*Menu*/
+ul{
+    list-style-type: none;
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+    border-top:1px solid black;
+}
+li{
+    display: inline-block;
+    float: left;
+    width: 20%;
+    text-align: center;
+    line-height: 50px;
+    height: 50px;
+}
+li a{
+    display:block;
+    min-width: 20%;
+    text-decoration: none;
+    color:white;
+}
+li:hover a{
+    background-color:#c0c0c0;
+    height: 100%;
+}
+.show-menu{
+    text-decoration: none;
+    color:white;
+    text-align: center;
+    display:none;
+    height: 50px;
+    line-height: 50px;
+    border-top:1px solid black;
+}
+.show-menu:hover{
+    background-color: #c0c0c0;
+}
+input[type=checkbox]{
+    display:none;
+}
+input[type=checkbox]:checked ~ #menu{
+    display:block;
+}
+@media screen and (max-width :760px){
+    ul{
+        position: static;
+        display: none;
+    }
+    li{
+        margin-bottom:1px;
+        background-color: #76b82a;
+    }
+    li:hover a{
+        background-color:#c0c0c0;
+        height: 100%;
+    }
+    ul li, li a {
+        width: 100%;
+    }
+    .show-menu{
+        display:block;
+    }
+}
