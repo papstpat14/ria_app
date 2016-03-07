@@ -103,4 +103,7 @@ input[type=checkbox]:checked ~ #menu{
     .show-menu{
         display:block;
     }
+    header{
+        font-size: 3.5em;
+    }
 }
