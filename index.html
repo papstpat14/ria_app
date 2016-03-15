@@ -1,40 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>RIA-Moodle</title>
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-</head>
-<body>
-<main>
-<header>
-    RIA-Moodle
-</header>
-<nav>
-    <label for="show-menu" class="show-menu">Menu</label>
-    <input type="checkbox" id="show-menu" role="button">
-    <ul id="menu">
-        <li><a href="#">Dummy-Link1</a></li>
-        <li><a href="#">Dummy-Link2</a></li>
-        <li><a href="#">Dummy-Link3</a></li>
-        <li><a href="#">Dummy-Link4</a></li>
-        <li><a href="#">Dummy-Link5</a></li>
-    </ul>
-</nav>
-<section>
-    Section
-</section>
-<footer>
-    <p>
-        &copy; 2016 FH-Joanneum Kapfenberg<br/>
-        by<br/>
-        Patrick Papst | Patrick Kainz | Markus Schalk
-    </p>
-</footer>
-</main>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>RIA-Moodle</title>
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/responsive.css">
+        <link rel="stylesheet" href="css/login.css">
+        <link rel="stylesheet" href="css/main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    </head>
+    <body>
+        <header class="row">
+            RIA-Moodle
+        </header>
+        <nav class="row">
+            <label for="show-menu" class="show-menu">Menu</label>
+            <input type="checkbox" id="show-menu" role="button"/>
+            <ul id="menu">
+                <li><a href="#">Dummy-Link1</a></li>
+                <li><a href="#">Dummy-Link2</a></li>
+                <li><a href="#">Dummy-Link3</a></li>
+                <li><a href="#">Dummy-Link4</a></li>
+                <li><a href="#">Dummy-Link5</a></li>
+            </ul>
+        </nav>
+        <main>
+            <section id="pages">
+                <section id="login" class="row" hidden="hidden">
+                    <article id="login-window">
+                        <label>Username: <input type="text" placeholder="Username" id="username"/> </label>
+                        <label>Password: <input type="password" placeholder="Password" id="password"/> </label>
+                        <button id="btLogin">Login</button>
+                    </article>
+                </section>
+                <section id="main">
+                    <aside id="calendar">
 
+                    </aside>
+                    <article id="courses" class="row">
+                        <section class="course col-2">
+                            <div>
+                                <span>Rich Internet Applications</span>
+                            </div>
+                        </section>
+                        <section class="course col-2">
+                            <div>
+                                <span>Projektarbeit</span>
+                            </div>
+                        </section>
+                        <section class="course col-2">
+                            <div>
+                                <span>Projektmanagement 1</span>
+                            </div>
+                        </section>
+                        <section class="course col-2">
+                            <div>
+                                <span>Design Patterns</span>
+                            </div>
+                        </section>
+                        <section class="course col-2">
+                            <div>
+                                <span>Internet Ökonomie</span>
+                            </div>
+                        </section>
+                        <section class="course col-2">
+                            <div>
+                                <span>Distributed Computing</span>
+                            </div>
+                        </section>
+                        <section class="course col-2">
+                            <div>
+                                <span>IT-Recht</span>
+                            </div>
+                        </section>
+                        <section class="course col-2">
+                            <div>
+                                <span>Hardwarenahe Programmierung</span>
+                            </div>
+                        </section>
+                    </article>
+                </section>
+            </section>
+        </main>
+        <footer class="col-12 row">
+            <p>
+                &copy; 2016 FH-Joanneum Kapfenberg<br/>
+                by<br/>
+                Patrick Papst | Patrick Kainz | Markus Schalk
+            </p>
+        </footer>
+    </body>
 </html>
