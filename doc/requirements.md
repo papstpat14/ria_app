@@ -17,3 +17,5 @@
 ## UI-Tests (e.g. selenium). 
 
 ## Documentation (readme, install, poster, source-docu) and mock-up data.
+
+## Beautifying
