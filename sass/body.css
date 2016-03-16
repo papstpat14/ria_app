@@ -1,0 +1,103 @@
+.fullwidth, .fullsize, html, body, nav ul, header, nav .show-menu, footer {
+  width: 100%; }
+
+.fullheight, .fullsize, html, body, nav ul, nav ul li:hover a {
+  height: 100%; }
+
+.nospace, header {
+  margin: 0;
+  padding: 0; }
+
+.snapToBottom, footer {
+  bottom: 0; }
+
+.center, .central-block, header, nav .show-menu, footer, .central-inline, nav ul li {
+  text-align: center; }
+
+.middle span, .middle-block span, .central-block span, header span, nav .show-menu span, footer span, .middle-inline span, .central-inline span, nav ul li span, .middle a, .middle-block a, .central-block a, header a, nav .show-menu a, footer a, .middle-inline a, .central-inline a, nav ul li a {
+  display: table-cell;
+  vertical-align: middle; }
+
+.middle-block, .central-block, header, nav .show-menu, footer {
+  display: table; }
+
+.middle-inline, .central-inline, nav ul li {
+  display: inline-table; }
+
+.floatLeft, nav ul li {
+  float: left; }
+
+.clearfix:after, nav ul:after {
+  content: " ";
+  display: block;
+  height: 0;
+  clear: both; }
+
+* {
+  margin: 0;
+  padding: 0; }
+
+html {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+header {
+  background-color: #76b82a;
+  height: 100px;
+  font-size: 5em; }
+
+nav {
+  background-color: #76b82a; }
+  nav input[type=checkbox] {
+    display: none; }
+  nav input[type=checkbox]:checked ~ #menu {
+    display: block; }
+  nav ul {
+    list-style-type: none;
+    vertical-align: middle;
+    border-top: 1px solid black; }
+    nav ul li {
+      width: 20%;
+      height: 50px; }
+      nav ul li a {
+        min-width: 20%;
+        text-decoration: none;
+        color: white; }
+    nav ul li:hover a {
+      background-color: #c0c0c0; }
+  nav .show-menu {
+    text-decoration: none;
+    color: white;
+    display: none;
+    height: 50px;
+    border-top: 1px solid black; }
+  nav .show-menu:hover {
+    background-color: #c0c0c0; }
+
+main {
+  background-color: #c0c0c0;
+  min-height: calc(100vh - 250px); }
+
+footer {
+  color: white;
+  background-color: #232323;
+  height: 100px; }
+
+@media screen and (max-width: 760px) {
+  nav ul {
+    position: static;
+    display: none; }
+    nav ul li {
+      margin-bottom: 1px;
+      background-color: #76b82a; }
+    nav ul li:hover a {
+      background-color: #c0c0c0;
+      height: 100%; }
+  nav ul li, nav li a {
+    width: 100%; }
+  nav .show-menu {
+    display: table; }
+
+  header {
+    font-size: 3em; } }
+
+/*# sourceMappingURL=body.css.map */

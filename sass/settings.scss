@@ -1,0 +1,14 @@
+$color-background-special: #76b82a;
+$color-background-normal:  #c0c0c0;
+$color-background-footer:  #232323;
+$color-foreground-footer:white;
+$color-foreground-nav:white;
+$height-header: 100px;
+$header-font-size:5em;
+$header-font-size-smartphone: 3em;
+$height-nav: 50px;
+$height-footer: 100px;
+$height-outer:$height-nav+$height-header+$height-footer;
+$height-nav-element : $height-nav;
+$count-menu-elements: 5;
+$max-width-smartphone: 760px;

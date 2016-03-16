@@ -1,0 +1,117 @@
+@import 'settings';
+@import 'basic';
+
+*{
+  margin: 0;
+  padding: 0;
+}
+
+html{
+  @extend .fullsize;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body{
+  @extend .fullsize;
+}
+
+header{
+  background-color: $color-background-special;
+  height: $height-header;
+  font-size: $header-font-size;
+  @extend .central-block;
+  @extend .nospace;
+  @extend  .middle-block;
+  @extend .fullwidth;
+}
+
+nav{
+  background-color:  $color-background-special;
+  input[type=checkbox]{
+    display:none;
+  }
+  input[type=checkbox]:checked ~ #menu{
+    display:block;
+  }
+
+  ul{
+    list-style-type: none;
+    @extend .fullsize;
+    @extend .clearfix;
+    vertical-align: middle;
+    border-top:1px solid black;
+    li{
+      @extend .floatLeft;
+      width: 100%/$count-menu-elements;
+      @extend .central-inline;
+      height: $height-nav-element;
+      a{
+        min-width: 100%/$count-menu-elements;
+        text-decoration: none;
+        color:$color-foreground-nav;
+      }
+    }
+    li:hover{
+      a{
+        background-color:$color-background-normal;
+        @extend .fullheight;
+      }
+    }
+  }
+  .show-menu{
+    text-decoration: none;
+    color:$color-foreground-nav;
+    @extend .central-block;
+    @extend .fullwidth;
+    display:none;
+    height: $height-nav;
+    border-top:1px solid black;
+  }
+  .show-menu:hover{
+    background-color: #c0c0c0;
+  }
+}
+
+main{
+  background-color: $color-background-normal;
+  min-height: unquote("calc(100vh - "+$height-outer+")");
+}
+
+
+footer{
+  color:$color-foreground-footer;
+  background-color: $color-background-footer;
+  height: $height-footer;
+  @extend .snapToBottom;
+  @extend .fullwidth;
+  @extend .central-block;
+}
+
+
+@media screen and (max-width :$max-width-smartphone){
+  nav{
+    ul{
+      position: static;
+      display: none;
+      li{
+        margin-bottom:1px;
+        background-color: $color-background-special;
+      }
+      li:hover{
+        a{
+          background-color:$color-background-normal;
+          height: 100%;
+        }
+      }
+    }
+    ul li, li a {
+      width: 100%;
+    }
+    .show-menu{
+      display:table;
+    }
+  }
+  header{
+    font-size: $header-font-size-smartphone;
+  }
+}

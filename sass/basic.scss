@@ -1,0 +1,67 @@
+.fullwidth{
+  width:100%;
+}
+
+.fullheight{
+  height:100%;
+}
+
+.fullsize
+{
+  @extend .fullwidth;
+  @extend .fullheight;
+}
+
+.nospace
+{
+  margin:0;
+  padding:0;
+}
+
+.snapToBottom
+{
+  bottom: 0;
+}
+
+.center{
+  text-align:center;
+}
+
+.middle span, .middle a{
+  display:table-cell;
+  vertical-align: middle;
+}
+
+.middle-block{
+  display:table;
+  @extend .middle;
+}
+
+.middle-inline{
+  display:inline-table;
+  @extend .middle;
+}
+
+.central-block
+{
+  @extend .middle-block;
+  @extend .center;
+}
+
+.central-inline
+{
+  @extend .middle-inline;
+  @extend .center;
+}
+
+.floatLeft
+{
+  float:left;
+}
+
+.clearfix:after{
+  content: " ";
+  display: block;
+  height: 0;
+  clear: both;
+}
