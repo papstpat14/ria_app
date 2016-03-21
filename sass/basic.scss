@@ -23,8 +23,12 @@
   bottom: 0;
 }
 
-.center{
+.centertext {
   text-align:center;
+}
+.centered{
+  margin-left:auto;
+  margin-right:auto;
 }
 
 .middle span, .middle a{
@@ -45,13 +49,13 @@
 .central-block
 {
   @extend .middle-block;
-  @extend .center;
+  @extend .centertext;
 }
 
 .central-inline
 {
   @extend .middle-inline;
-  @extend .center;
+  @extend .centertext;
 }
 
 .floatLeft
@@ -64,4 +68,20 @@
   display: block;
   height: 0;
   clear: both;
+}
+
+.window
+{
+  position:absolute;
+  left:50%;
+  transform: translateX(-50%)  translateY(-50%);
+  top:50%;
+  border: 10px solid $color-background-special;
+  background-color: $color-background-normal;
+  padding:10px;
+}
+
+.bodyheight
+{
+  min-height: unquote("calc(100vh - "+$height-outer+")");
 }

@@ -1,0 +1,104 @@
+@import 'settings';
+@import 'basic';
+
+.basicCalendar
+{
+  background-color:$color-background-special;
+  @extend .fullheight;
+  >section
+  {
+    border-bottom:2px solid $color-background-footer;
+    h2{
+      padding-bottom:4px;
+    }
+  }
+  .assignments
+  {
+
+    .assignment
+    {
+      border-top:1px solid $color-background-footer;
+      padding-top:2px;
+      padding-bottom:2px;
+      span{
+        display:block;
+      }
+    }
+  }
+}
+
+#main
+{
+  @extend .fullsize;
+  position:relative;
+  #courses{
+    display:inline-block;
+    @extend .central-block;
+    width: unquote("calc(100% - 300px)");
+    margin-left:300px;
+    .course
+    {
+      @extend .central-inline;
+      word-wrap:break-word;
+      height:300px;
+      width:300px;
+      padding:10px;
+      div{
+        @extend .central-inline;
+        @extend .fullsize;
+        border: 4px solid $color-background-special;
+        background-color: $color-background-normal;
+
+      }
+      div:hover{
+        background-color:$color-background-special;
+      }
+    }
+  }
+
+
+  #calendar{
+    border-top:2px solid $color-background-footer;
+    width:300px;
+    float:left;
+    @extend .clearfix;
+    @extend .bodyheight;
+    position:absolute;
+    @extend .basicCalendar;
+  }
+
+
+}
+
+@media screen and (max-width :$max-width-smartphone)
+{
+  #main {
+    #courses {
+      margin-left:0;
+      width:100%;
+      .course {
+        width: 100%;
+        height: auto;
+        display: block;
+        padding: 0;
+        border: none;
+        border-bottom: 2px solid $color-background-special;
+        div {
+          border: none;
+          padding: 10px;
+        }
+      }
+    }
+    #calendar {
+      display: none;
+      width: 0;
+      height: 0;
+    }
+  }
+
+  #calendar
+  {
+    float:none;
+    width:100%;
+  }
+}

@@ -4,6 +4,7 @@
 *{
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 html{
@@ -57,6 +58,13 @@ nav{
         @extend .fullheight;
       }
     }
+    #calendar-link
+    {
+      display:none;
+      min-width:0;
+      height:0;
+      width:0;
+    }
   }
   .show-menu{
     text-decoration: none;
@@ -74,7 +82,7 @@ nav{
 
 main{
   background-color: $color-background-normal;
-  min-height: unquote("calc(100vh - "+$height-outer+")");
+  @extend .bodyheight;
 }
 
 
@@ -103,6 +111,13 @@ footer{
           height: 100%;
         }
       }
+      #calendar-link
+      {
+        display:inline-table;
+        min-width:100%;
+        height: $height-nav-element;
+        width:100%;
+      }
     }
     ul li, li a {
       width: 100%;
@@ -114,4 +129,13 @@ footer{
   header{
     font-size: $header-font-size-smartphone;
   }
+
+}
+
+#pages{
+  @extend .fullsize;
+}
+
+.page {
+  @extend .fullsize;
 }
