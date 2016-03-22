@@ -31,8 +31,13 @@
   margin-right:auto;
 }
 
-.middle span, .middle a{
+.middle>span, .middle>a{
   display:table-cell;
+  vertical-align: middle;
+}
+
+.middle>table{
+  display:inline-table;
   vertical-align: middle;
 }
 

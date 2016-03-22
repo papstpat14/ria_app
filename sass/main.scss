@@ -1,31 +1,7 @@
 @import 'settings';
 @import 'basic';
 
-.basicCalendar
-{
-  background-color:$color-background-special;
-  @extend .fullheight;
-  >section
-  {
-    border-bottom:2px solid $color-background-footer;
-    h2{
-      padding-bottom:4px;
-    }
-  }
-  .assignments
-  {
 
-    .assignment
-    {
-      border-top:1px solid $color-background-footer;
-      padding-top:2px;
-      padding-bottom:2px;
-      span{
-        display:block;
-      }
-    }
-  }
-}
 
 #main
 {
@@ -34,8 +10,7 @@
   #courses{
     display:inline-block;
     @extend .central-block;
-    width: unquote("calc(100% - 300px)");
-    margin-left:300px;
+    width:100%;
     .course
     {
       @extend .central-inline;
@@ -54,17 +29,6 @@
         background-color:$color-background-special;
       }
     }
-  }
-
-
-  #calendar{
-    border-top:2px solid $color-background-footer;
-    width:300px;
-    float:left;
-    @extend .clearfix;
-    @extend .bodyheight;
-    position:absolute;
-    @extend .basicCalendar;
   }
 
 
@@ -89,16 +53,6 @@
         }
       }
     }
-    #calendar {
-      display: none;
-      width: 0;
-      height: 0;
-    }
   }
 
-  #calendar
-  {
-    float:none;
-    width:100%;
-  }
 }

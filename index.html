@@ -4,53 +4,119 @@
         <meta charset="UTF-8">
         <title>RIA-Moodle</title>
         <script type="text/javascript">
-            function show(page)
+            function show(page,withCalendar,withNav,className)
             {
-                var pages = document.getElementsByClassName("page");
+                if(className==null||className==undefined)
+                    className="page";
+                var pages = document.getElementsByClassName(className);
                 for(var i = 0;i<pages.length;i++)
-                    pages.item(i).hidden="hidden";
-                document.getElementById(page).hidden=null;
+                    pages.item(i).classList.add("hidden");
+                document.getElementById(page).classList.remove("hidden");
+                if(withCalendar)
+                    document.getElementById("calendar").classList.remove("hidden");
+                else
+                    document.getElementById("calendar").classList.add("hidden");
+                if(withNav)
+                    document.getElementById("tablet-nav").classList.remove("hidden");
+                else
+                    document.getElementById("tablet-nav").classList.add("hidden");
+                var phonenav = document.getElementsByClassName("phonenav");
+                for(i = 0;i<phonenav.length;i++)
+                    if(withNav)
+                        phonenav.item(i).classList.remove("hidden");
+                    else
+                        phonenav.item(i).classList.add("hidden");
             }
             window.onresize=function()
             {
                 if(window.innerWidth>760)
-                    if(document.getElementById("calendarpage").hidden!="hidden")
-                        show("main");
+                    if(!document.getElementById("calendarpage").classList.contains("hidden"))
+                        show("main",true);
+                if(window.innerWidth<=1000)
+                {
+                    if(!document.getElementById("files").classList.contains("hidden"))
+                        document.getElementById("grades").classList.add("hidden");
+                }
+                else
+                {
+                    if(document.getElementById("files").classList.contains("hidden"))
+                        document.getElementById("files").classList.remove("hidden");
+                    if(document.getElementById("grades").classList.contains("hidden"))
+                        document.getElementById("grades").classList.remove("hidden");
+                }
+
             };
+            function initCourse()
+            {
+                if(window.innerWidth<=1000)
+                    show("files",true,true,"secondarypage");
+            }
+            window.onload=function()
+            {
+                show("main",true);
+            }
         </script>
         <link rel="stylesheet" href="css/reset.css">
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="sass/body.css">
         <link rel="stylesheet" href="sass/login.css">
         <link rel="stylesheet" href="sass/main.css">
+        <link rel="stylesheet" href="sass/course.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     </head>
     <body>
         <header class="row">
-            <span>RIA-Moodle</span>
+            <a href="#" onclick="show('main',true)">RIA-Moodle</a>
         </header>
         <nav class="row">
             <label for="show-menu" class="show-menu"><span>Menu</span></label>
             <input type="checkbox" id="show-menu" role="button"/>
             <ul id="menu">
-                <li><a href="#" onclick="show('login')">Login</a></li>
-                <li><a href="#" onclick="show('main')">Main</a></li>
-                <li><a href="#">Dummy-Link3</a></li>
-                <li><a href="#">Dummy-Link4</a></li>
-                <li><a href="#">Dummy-Link5</a></li>
-                <li id="calendar-link"><a href="#" onclick="show('calendarpage')" >Kalender</a></li>
+                <li><a href="#" onclick="show('login',false)">Login</a></li>
+                <li><a href="#" onclick="show('main',true)">Main</a></li>
+                <li><a href="#" onclick="show('coursepage',true,true);initCourse();">Kurs</a></li>
+                <li class="phonelink"><a href="#" onclick="show('calendarpage',false);" >Kalender</a></li>
+                <li class="phonelink phonenav"><a href="#" onclick="show('files',true,true,'secondarypage')">Dateien</a></li>
+                <li class="phonelink phonenav"><a href="#" onclick="show('grades',true,true,'secondarypage')">Noten</a></li>
             </ul>
         </nav>
         <main class="row">
+            <section id="calendar">
+                <section class="real-calendar">
+                    <h2>Kalender</h2>
+                    Hier kommt der Kalender hin
+                </section>
+                <section class="assignments">
+                    <h2>Abgaben:</h2>
+                    <section class="assignment">
+                        <span>RIA UE01</span>
+                        <span>Abgabe: 14.03.2016</span>
+                    </section>
+                    <section class="assignment">
+                        <span>RIA UE02</span>
+                        <span>Abgabe: 15.03.2016</span>
+                    </section>
+                    <section class="assignment">
+                        <span>RIA UE03</span>
+                        <span>Abgabe: 16.03.2016</span>
+                    </section>
+                </section>
+                <section id="tablet-nav">
+                    <ul class="phonemenu">
+                        <li><a href="#" onclick="show('files',true,true,'secondarypage')">Dateien</a></li>
+                        <li><a href="#" onclick="show('grades',true,true,'secondarypage')">Noten</a></li>
+                    </ul>
+                </section>
+            </section>
             <section id="pages">
-                <section id="login" class="page" hidden="hidden">
+                <section id="login" class="page" >
                     <article id="login-window">
                         <label>Username: <input type="text" placeholder="Username" id="username"/> </label>
                         <label>Password: <input type="password" placeholder="Password" id="password"/> </label>
                         <button id="btLogin">Login</button>
                     </article>
                 </section>
-                <section id="calendarpage" class="page basicCalendar" hidden="hidden">
+                <section id="calendarpage" class="page basicCalendar" >
                     <section class="real-calendar">
                         <h2>Kalender</h2>
                         Hier kommt der Kalender hin
@@ -71,28 +137,40 @@
                         </section>
                     </section>
                 </section>
-                <section id="main" class="page">
-                    <section id="calendar">
-                        <section class="real-calendar">
-                            <h2>Kalender</h2>
-                            Hier kommt der Kalender hin
-                        </section>
-                        <section class="assignments">
-                            <h2>Abgaben:</h2>
-                            <section class="assignment">
-                                <span>RIA UE01</span>
-                                <span>Abgabe: 14.03.2016</span>
-                            </section>
-                            <section class="assignment">
-                                <span>RIA UE02</span>
-                                <span>Abgabe: 15.03.2016</span>
-                            </section>
-                            <section class="assignment">
-                                <span>RIA UE03</span>
-                                <span>Abgabe: 16.03.2016</span>
-                            </section>
-                        </section>
+                <section id="coursepage" class="coursepage page withCalendar" >
+                    <section id="files" class="secondarypage">
+                        <div>
+                            <h1>Rich Internet Applications</h1>
+                            <ul id="ulFiles">
+                                <li>File 1 <a href="#">Download</a></li>
+                                <li>File 2 <a href="#">Download</a></li>
+                                <li>File 3 <a href="#">Download</a></li>
+                                <li>File 4 <a href="#">Download</a></li>
+                            </ul>
+                        </div>
                     </section>
+                    <section id="grades"  class="secondarypage">
+                        <table>
+                            <tr>
+                                <th>Abgabe</th>
+                                <th>Bewertung</th>
+                            </tr>
+                            <tr>
+                                <td>RIA Abgabe 1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>RIA Abgabe 2</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>RIA Abgabe 3</td>
+                                <td>3</td>
+                            </tr>
+                        </table>
+                    </section>
+                </section>
+                <section id="main" class="page withCalendar">
                     <section id="courses" class="row">
                         <section class="course">
                             <div>

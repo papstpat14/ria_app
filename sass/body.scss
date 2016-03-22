@@ -24,6 +24,10 @@ header{
   @extend .nospace;
   @extend  .middle-block;
   @extend .fullwidth;
+  a{
+    text-decoration: none;
+    color:$color-background-footer;
+  }
 }
 
 nav{
@@ -58,7 +62,7 @@ nav{
         @extend .fullheight;
       }
     }
-    #calendar-link
+    .phonelink
     {
       display:none;
       min-width:0;
@@ -79,10 +83,58 @@ nav{
     background-color: #c0c0c0;
   }
 }
+.basicCalendar
+{
+  background-color:$color-background-special;
+  @extend .fullheight;
+  >section
+  {
+    border-bottom:2px solid $color-background-footer;
+    h2{
+      padding-bottom:4px;
+    }
+  }
+  .assignments
+  {
+
+    .assignment
+    {
+      border-top:1px solid $color-background-footer;
+      padding-top:2px;
+      padding-bottom:2px;
+      span{
+        display:block;
+      }
+    }
+  }
+}
 
 main{
+  position:relative;
   background-color: $color-background-normal;
   @extend .bodyheight;
+  #calendar{
+    border-top:2px solid $color-background-footer;
+    width:300px;
+    float:left;
+    @extend .clearfix;
+    @extend .bodyheight;
+    position:absolute;
+    @extend .basicCalendar;
+  }
+  #pages
+  {
+    height:100%;
+    .page
+    {
+      @extend .fullwidth;
+    }
+    .withCalendar
+    {
+      width: unquote("calc(100% - 300px)");
+      margin-left:300px;
+    }
+  }
 }
 
 
@@ -111,7 +163,7 @@ footer{
           height: 100%;
         }
       }
-      #calendar-link
+      .phonelink
       {
         display:inline-table;
         min-width:100%;
@@ -130,6 +182,19 @@ footer{
     font-size: $header-font-size-smartphone;
   }
 
+  main{
+    #calendar {
+      display: none;
+      width: 0;
+      height: 0;
+    }
+    #pages{
+      .withCalendar{
+        margin-left:0;
+        width:100%;
+      }
+    }
+  }
 }
 
 #pages{
@@ -138,4 +203,37 @@ footer{
 
 .page {
   @extend .fullsize;
+}
+
+#tablet-nav
+{
+  display:none;
+  height:0;
+  width:300px;
+  position:fixed;
+  bottom:100px;
+  .phonemenu
+  {
+    width:100%;
+    li{
+      @extend .central-block;
+      height: $height-nav-element;
+      margin-bottom:1px;
+      background-color: $color-background-special;
+      width:100%;
+      a{
+        width:100%;
+        text-decoration: none;
+        color:$color-foreground-nav;
+      }
+    }
+    li:hover{
+      background-color:$color-background-normal;
+    }
+  }
+}
+
+.hidden
+{
+  display:none !important;
 }

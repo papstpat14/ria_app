@@ -18,8 +18,12 @@
   margin-left: auto;
   margin-right: auto; }
 
-.middle span, .middle-block span, .central-block span, .middle-inline span, .central-inline span, .middle a, .middle-block a, .central-block a, .middle-inline a, .central-inline a {
+.middle > span, .middle-block > span, .central-block > span, .middle-inline > span, .central-inline > span, .middle > a, .middle-block > a, .central-block > a, .middle-inline > a, .central-inline > a {
   display: table-cell;
+  vertical-align: middle; }
+
+.middle > table, .middle-block > table, .central-block > table, .middle-inline > table, .central-inline > table {
+  display: inline-table;
   vertical-align: middle; }
 
 .middle-block, .central-block {

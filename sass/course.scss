@@ -1,0 +1,61 @@
+@import 'settings';
+@import 'basic';
+
+
+.coursepage
+{
+  position:relative;
+  padding-right:200px;
+  @extend .bodyheight;
+  @extend .central-block;
+  display:block;
+  h1{
+    margin-top:0;
+  }
+  #grades{
+    position:absolute;
+    top:0;
+    right:0;
+    width:200px;
+    background-color:$color-background-special;
+    bottom:0;
+    @extend .central-block;
+    display:block;
+    table{
+      tr{
+        th,td{
+          text-align:center;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width :$max-width-tablet){
+  #tablet-nav
+  {
+    display:block;
+    height:auto;
+  }
+
+  .coursepage{
+    padding-right:0;
+    text-align:center;
+    display:table;
+    #grades{
+      position:relative;
+      width:100%;
+      background-color:$color-background-normal;
+    }
+  }
+}
+
+
+@media screen and (max-width: $max-width-smartphone)
+{
+  .coursepage
+  {
+    padding-right:0;
+  }
+}
+

@@ -1,7 +1,7 @@
 .fullwidth, .fullsize, #main, #main #courses .course div {
   width: 100%; }
 
-.fullheight, .fullsize, #main, #main #courses .course div, .basicCalendar, #main #calendar {
+.fullheight, .fullsize, #main, #main #courses .course div {
   height: 100%; }
 
 .nospace {
@@ -18,8 +18,12 @@
   margin-left: auto;
   margin-right: auto; }
 
-.middle span, .middle-block span, .central-block span, #main #courses span, .middle-inline span, .central-inline span, #main #courses .course span, .middle a, .middle-block a, .central-block a, #main #courses a, .middle-inline a, .central-inline a, #main #courses .course a {
+.middle > span, .middle-block > span, .central-block > span, #main #courses > span, .middle-inline > span, .central-inline > span, #main #courses .course > span, #main #courses .course div > span, .middle > a, .middle-block > a, .central-block > a, #main #courses > a, .middle-inline > a, .central-inline > a, #main #courses .course > a, #main #courses .course div > a {
   display: table-cell;
+  vertical-align: middle; }
+
+.middle > table, .middle-block > table, .central-block > table, #main #courses > table, .middle-inline > table, .central-inline > table, #main #courses .course > table, #main #courses .course div > table {
+  display: inline-table;
   vertical-align: middle; }
 
 .middle-block, .central-block, #main #courses {
@@ -31,7 +35,7 @@
 .floatLeft {
   float: left; }
 
-.clearfix:after, #main #calendar:after {
+.clearfix:after {
   content: " ";
   display: block;
   height: 0;
@@ -46,28 +50,14 @@
   background-color: #c0c0c0;
   padding: 10px; }
 
-.bodyheight, #main #calendar {
+.bodyheight {
   min-height: calc(100vh - 250px); }
-
-.basicCalendar, #main #calendar {
-  background-color: #76b82a; }
-  .basicCalendar > section, #main #calendar > section {
-    border-bottom: 2px solid #232323; }
-    .basicCalendar > section h2, #main #calendar > section h2 {
-      padding-bottom: 4px; }
-  .basicCalendar .assignments .assignment, #main #calendar .assignments .assignment {
-    border-top: 1px solid #232323;
-    padding-top: 2px;
-    padding-bottom: 2px; }
-    .basicCalendar .assignments .assignment span, #main #calendar .assignments .assignment span {
-      display: block; }
 
 #main {
   position: relative; }
   #main #courses {
     display: inline-block;
-    width: calc(100% - 300px);
-    margin-left: 300px; }
+    width: 100%; }
     #main #courses .course {
       word-wrap: break-word;
       height: 300px;
@@ -78,11 +68,6 @@
         background-color: #c0c0c0; }
       #main #courses .course div:hover {
         background-color: #76b82a; }
-  #main #calendar {
-    border-top: 2px solid #232323;
-    width: 300px;
-    float: left;
-    position: absolute; }
 
 @media screen and (max-width: 760px) {
   #main #courses {
@@ -97,14 +82,6 @@
       border-bottom: 2px solid #76b82a; }
       #main #courses .course div {
         border: none;
-        padding: 10px; }
-  #main #calendar {
-    display: none;
-    width: 0;
-    height: 0; }
-
-  #calendar {
-    float: none;
-    width: 100%; } }
+        padding: 10px; } }
 
 /*# sourceMappingURL=main.css.map */
