@@ -1,0 +1,72 @@
+.fullwidth, .fullsize, #login-window label, #login-window button {
+  width: 100%; }
+
+.fullheight, .fullsize {
+  height: 100%; }
+
+.nospace {
+  margin: 0;
+  padding: 0; }
+
+.snapToBottom {
+  bottom: 0; }
+
+.centertext, .central-block, .central-inline {
+  text-align: center; }
+
+.centered {
+  margin-left: auto;
+  margin-right: auto; }
+
+.middle span, .middle-block span, .central-block span, .middle-inline span, .central-inline span, .middle a, .middle-block a, .central-block a, .middle-inline a, .central-inline a {
+  display: table-cell;
+  vertical-align: middle; }
+
+.middle-block, .central-block {
+  display: table; }
+
+.middle-inline, .central-inline {
+  display: inline-table; }
+
+.floatLeft {
+  float: left; }
+
+.clearfix:after, #login-window label:after {
+  content: " ";
+  display: block;
+  height: 0;
+  clear: both; }
+
+.window, #login-window {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  top: 50%;
+  border: 10px solid #76b82a;
+  background-color: #c0c0c0;
+  padding: 10px; }
+
+.bodyheight {
+  min-height: calc(100vh - 250px); }
+
+#login-window {
+  width: 400px; }
+  #login-window label {
+    display: block;
+    margin-bottom: 10px; }
+    #login-window label input {
+      float: right;
+      width: 50%; }
+  #login-window button {
+    height: 30px; }
+
+@media screen and (max-width: 760px) {
+  #login-window {
+    width: 100%;
+    border: none;
+    position: relative;
+    transform: none;
+    top: 0;
+    left: 0; } }
+
+/*# sourceMappingURL=login.css.map */
