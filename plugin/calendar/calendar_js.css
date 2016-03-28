@@ -23,8 +23,9 @@
  **********************************************************************/
 
 			html, body { 
-				background-color: #ECECEC;
-				font-family: verdana, arial, sans-serif; 
+				/*background-color: #ECECEC; original*/
+				background-color: #76b82a;
+				font-family: verdana, arial, sans-serif;
 			}
 				
 			#calendar { /* Fuer IE <= 6 */
