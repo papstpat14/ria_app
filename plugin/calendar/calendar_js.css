@@ -36,18 +36,22 @@
 				font-weight: bold; 
 				font-size: 0.75em;
 				line-height: 1.5em;				
-				color: #BFBFC1; 
+				/*color: #BFBFC1; original*/
+				color: black;
 				text-align: center;
-				background-color: #112A5D;
+				/*background-color: #112A5D; original*/
+				background-color: #76b82a;
 			}
 			
 			#calendar table thead th.weekday{ 
 				font-weight: bold; 
 				font-size: 0.5em;
 				line-height: 1.5em;
-				color: #112A5D; 
+				/*color: #112A5D; original*/
+				color:black;
 				text-align: center;
-				background-color: #CCD2D8;
+				/*background-color: #CCD2D8; original*/
+				background-color: #c0c0c0;
 				border: solid #112A5D 1px;
 			}
 
@@ -58,11 +62,17 @@
 				width: 2.0em;
 				padding-left: 0.6em; 
 				padding-right: 0.6em; 
-				color: #0E224B; 
+				/*color: #0E224B; original*/
+				color: black;
 				text-align: right;
 				border: 1px solid #CCD2D8;
 			}
-			
+
+			/*include by RIA-Moodle*/
+			#calendar table tbody td:hover{
+				background-color: #c0c0c0;
+			}
+
 			#calendar table tfoot td {
 				font-size: 0.65em;
 				border: none;
@@ -87,9 +97,15 @@
 			}
 			
 			#calendar table tbody td.today{
-				background-color: #A7B5C7;
+				/*background-color: #A7B5C7; original*/
+				background-color: #76b82a;
 			}
-			
+
+			/*include by RIA-Moodle*/
+			#calendar table tbody td.today:hover{
+				background-color: #c0c0c0;
+			}
+
 			#calendar table thead th.prev_year, #calendar table thead th.next_year {
 				margin: 0.1em;
 				padding: 0.1em;
@@ -103,9 +119,11 @@
 			
 			#calendar table{
 				border-collapse: collapse;
-				border: solid #112A5D 2px;
+				/*border: solid #112A5D 2px; original*/
+				border: solid black 2px;
 				padding: 0;
 				margin-left:auto;
 				margin-right:auto;
+				width: 100%;/*include by RIA-Moodle*/
 				background-color: #F6F6F6;
 			}
