@@ -51,7 +51,7 @@
   padding: 10px; }
 
 .bodyheight, main, main #calendar {
-  min-height: calc(100vh - 250px); }
+  min-height: calc(100vh - 251px); }
 
 * {
   margin: 0;

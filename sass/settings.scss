@@ -8,7 +8,7 @@ $header-font-size:5em;
 $header-font-size-smartphone: 3em;
 $height-nav: 50px;
 $height-footer: 100px;
-$height-outer:$height-nav+$height-header+$height-footer;
+$height-outer:$height-nav+$height-header+$height-footer+1;
 $height-nav-element : $height-nav;
 $count-menu-elements: 3;
 $max-width-smartphone: 760px;
