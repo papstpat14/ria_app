@@ -64,7 +64,7 @@ html {
 header {
   background-color: #76b82a;
   height: 100px;
-  font-size: 5em; }
+  font-size: 5rem; }
   header a {
     text-decoration: none;
     color: #232323; }
@@ -104,10 +104,8 @@ nav {
 
 .basicCalendar, main #calendar {
   background-color: #76b82a; }
-  .basicCalendar > section, main #calendar > section {
-    border-bottom: 2px solid #232323; }
-    .basicCalendar > section h2, main #calendar > section h2 {
-      padding-bottom: 4px; }
+  .basicCalendar > section h2, main #calendar > section h2 {
+    padding-bottom: 4px; }
   .basicCalendar .assignments .assignment, main #calendar .assignments .assignment {
     border-top: 1px solid #232323;
     padding-top: 2px;
@@ -157,7 +155,7 @@ footer {
       display: table; }
 
   header {
-    font-size: 3em; }
+    font-size: 3rem; }
 
   main #calendar {
     display: none;
