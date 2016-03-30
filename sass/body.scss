@@ -150,6 +150,7 @@ footer{
 
 @media screen and (max-width :$max-width-smartphone){
   nav{
+    border-bottom: 1px solid black;
     ul{
       position: static;
       display: none;
