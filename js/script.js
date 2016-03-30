@@ -89,7 +89,7 @@ function getCourseAssignments() {
 //TODO replace console logs and alerts
 //TODO replace default values
 function getCourseAssignmentGrades() {
-    var url = createUrl("mod_assign_get_grades", {"assignmentids[0]":"238"});
+    var url = createUrl("gradereport_user_get_grades_table", {"userid":"60", "courseid":"1329"});
     if(url != null) {
         $.get(url, function(data, status) {
             console.log(data);
@@ -100,6 +100,19 @@ function getCourseAssignmentGrades() {
     else
         alert("invalid session error");
 }
+
+/*function getCourseAssignmentGrades() {
+    var url = createUrl("mod_assign_get_grades", {"assignmentids[0]":"238"});
+    if(url != null) {
+        $.get(url, function(data, status) {
+            console.log(data);
+        }).fail(function() {
+            console.log("network error");
+        });
+    }
+    else
+        alert("invalid session error");
+}*/
 
 function createUrl(fname, params) {
     var url = "https://elearning.fh-joanneum.at/webservice/rest/server.php?moodlewsrestformat=json&wsfunction=";
