@@ -64,7 +64,7 @@ html {
 header {
   background-color: #76b82a;
   height: 100px;
-  font-size: 5em; }
+  font-size: 5rem; }
   header a {
     text-decoration: none;
     color: #232323; }
@@ -157,7 +157,7 @@ footer {
       display: table; }
 
   header {
-    font-size: 3em; }
+    font-size: 3rem; }
 
   main #calendar {
     display: none;

@@ -74,7 +74,7 @@ function getCourseDetails() {
 //TODO replace console logs and alerts
 //TODO replace default values
 function getCourseAssignments() {
-    var url = createUrl("mod_assign_get_assignments", {"courseids[0]":"1052"});
+    var url = createUrl("mod_assign_get_assignments", {"courseids[0]":"1148"});
     if(url != null) {
         $.get(url, function(data, status) {
             console.log(data.courses[0].assignments);
@@ -89,7 +89,7 @@ function getCourseAssignments() {
 //TODO replace console logs and alerts
 //TODO replace default values
 function getCourseAssignmentGrades() {
-    var url = createUrl("gradereport_user_get_grades_table", {"userid":"60", "courseid":"1329"});
+    var url = createUrl("gradereport_user_get_grades_table", {"userid":"60", "courseid":"1148"});
     if(url != null) {
         $.get(url, function(data, status) {
             console.log(data);
