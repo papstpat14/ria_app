@@ -120,6 +120,9 @@ main{
     @extend .bodyheight;
     position:absolute;
     @extend .basicCalendar;
+      .assignments{
+        border-bottom: 1px solid black;
+      }
   }
   #pages
   {

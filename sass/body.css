@@ -121,6 +121,8 @@ main {
     width: 300px;
     float: left;
     position: absolute; }
+    main #calendar .assignments {
+      border-bottom: 1px solid black; }
   main #pages {
     height: 100%; }
     main #pages .withCalendar {
