@@ -1,6 +1,12 @@
-# Papst && Kainz
-    * Design && Prototyp
+# Design fertigstellen **Papst**
+# Assignment **Schalk**
+    * geringe Datenmenge
+    * Datum
+# Wetter - wann solltest du was für die FH tun **Schalk**
+# Mergen von Design-Code **Kainz**
 
-# Schalk
-    * mod_assign_get_grades
-    * mod_assign_get_submissions
+# OFFEN-TODO
+## Offline functionality:
+    * trivial
+
+## UI-Tests (e.g. selenium).
