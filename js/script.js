@@ -138,7 +138,7 @@ function getCourseAssignments(courseId, callback) {
             var assignments = [];
             data.courses[0].assignments.forEach(function(item) {
                 // multiplied by 1000 so that the argument is in milliseconds, not seconds.
-                var duedate = new Date(item.duedate*1000);
+                var duedate = item.duedate ? new Date(item.duedate*1000) : null;
                 var assign = new Assignment(item.name, item.intro, duedate);
                 assignments.push(assign);
             });
@@ -235,6 +235,7 @@ function Course(id, name) {
     this.name = name;
 }
 
+// duedate is null, if there is no duedate for the assignment
 function Assignment(name, desc, duedate) {
     this.name = name;
     this.desc = desc;
