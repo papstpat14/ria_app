@@ -1,27 +1,40 @@
 const TOKEN = "token=";
 const USERNAME = "username=";
 
-//TODO replace console logs
+//TODO replace console logs with actual logic
 /*
 test methods (temporary)
  */
 function testLogin() {
     var username = $("#username").val();
     var password = $("#password").val();
-    login(username, password);
+    login(username, password, function (data) {
+        console.log(data);
+    });
+}
+function testGetAllCourses() {
+    getAllCourses(function(data) {
+        console.log(data);
+    });
 }
 function testGetCourseDetails() {
     var courseId = 1148;
-    getCourseDetails(courseId);
+    getCourseDetails(courseId, function(data) {
+        console.log(data);
+    });
 }
 function testGetCourseAssignments() {
     var courseId = 1148;
-    getCourseAssignments(courseId);
+    getCourseAssignments(courseId, function(data) {
+        console.log(data);
+    });
 }
-function testGetCourseAssignmentGrades() {
+function testGetCourseAssignmentGrade() {
     var courseId = 1148;
     var assignmentName = "P03 Final Product (before Feb, 4th, 2016)";
-    getCourseAssignmentGrades(courseId, assignmentName);
+    getCourseAssignmentGrade(courseId, assignmentName, function(data) {
+        console.log(data);
+    });
 }
 //#####################################################################################################################
 
@@ -29,8 +42,9 @@ function testGetCourseAssignmentGrades() {
  * tries to login in a user on moodle elearn
  * @param username
  * @param password
+ * @param callback
  */
-function login(username, password) {
+function login(username, password, callback) {
     if (username && password) {
         var url = "https://elearning.fh-joanneum.at/login/token.php?username=" + username +
             "&password=" + password + "&service=moodle_mobile_app";
@@ -38,14 +52,14 @@ function login(username, password) {
             if (data.token != null) {
                 document.cookie = TOKEN + data.token;
                 document.cookie = USERNAME + username;
-                console.log("successfully logged-in");
+                callback("successfully logged-in");
             }
             else if (data.error != null)
-                console.log("error: " + data.error);
+                callback(new Error("error: " + data.error));
             else
-                console.log("other error");
+                callback(new Error("other error"));
         }).fail(function () {
-            console.log("network error");
+            callback(new Error("network error"));
         });
     }
 }
@@ -59,8 +73,9 @@ function logout() {
 
 /**
  * gets all subscribed courses for the current user
+ * @param callback
  */
-function getAllCourses() {
+function getAllCourses(callback) {
     var url = createUrl("core_user_get_users_by_field",  {"field":"username", "values[0]":getCookieByName(USERNAME)});
     if(url != null) {
         $.get(url, function(data, status) {
@@ -73,19 +88,19 @@ function getAllCourses() {
                             var course = new Course(item.id, item.fullname);
                             courses.push(course);
                         });
-                        console.log(courses);
+                        callback(courses);
                     }).fail(function() {
-                        console.log("network error");
+                        callback(new Error("network error"));
                     });
                 }
                 else
-                    alert("invalid session error");
+                    callback(new Error("invalid session error"));
             }
             else
-                console.log("other error");
+                callback(new Error("other error"));
 
         }).fail(function() {
-            console.log("network error");
+            callback(new Error("network error"));
         });
     }
     else
@@ -96,25 +111,27 @@ function getAllCourses() {
  * gets all resources from a course
  *  - section with modules array which includes the resources
  * @param courseId
+ * @param callback
  */
-function getCourseDetails(courseId) {
+function getCourseDetails(courseId, callback) {
     var url = createUrl("core_course_get_contents", {"courseid": courseId});
     if (url != null) {
         $.get(url, function (data, status) {
-            console.log(data);
+            callback(data);
         }).fail(function () {
-            console.log("network error");
+            callback(new Error("network error"));
         });
     }
     else
-        alert("invalid session error");
+        callback(new Error("invalid session error"));
 }
 
 /**
  * gets all assignment details for a specific course
  * @param courseId
+ * @param callback
  */
-function getCourseAssignments(courseId) {
+function getCourseAssignments(courseId, callback) {
     var url = createUrl("mod_assign_get_assignments", {"courseids[0]": courseId});
     if(url != null) {
         $.get(url, function(data, status) {
@@ -125,21 +142,22 @@ function getCourseAssignments(courseId) {
                 var assign = new Assignment(item.name, item.intro, duedate);
                 assignments.push(assign);
             });
-            console.log(data.courses[0].assignments);
+            callback(assignments);
         }).fail(function() {
-            console.log("network error");
+            callback(new Error("network error"));
         });
     }
     else
-        alert("invalid session error");
+        callback(new Error("invalid session error"));
 }
 
 /**
  * gets the grade for a assignment with the given name in the specific course
  * @param courseId
  * @param assignmentName
+ * @param callback
  */
-function getCourseAssignmentGrades(courseId, assignmentName) {
+function getCourseAssignmentGrade(courseId, assignmentName, callback) {
     var url = createUrl("core_user_get_users_by_field",  {"field":"username", "values[0]":getCookieByName(USERNAME)});
     if(url != null) {
         $.get(url, function(data, status) {
@@ -154,21 +172,21 @@ function getCourseAssignmentGrades(courseId, assignmentName) {
                             if(tabledata[i].itemname.content.indexOf(assignmentName) != -1) {
                                 var grade = new AssignmentGrade(
                                     tabledata[i].grade.content, tabledata[i].percentage.content);
-                                console.log(grade);
+                                callback(grade);
                             }
                         }
                     }).fail(function () {
-                        console.log("network error");
+                        callback(new Error("network error"));
                     });
                 }
                 else
-                    alert("invalid session error");
+                    callback(new Error("invalid session error"));
             }
             else
-                console.log("other error");
+                callback(new Error("other error"));
 
         }).fail(function() {
-            console.log("network error");
+            callback(new Error("network error"));
         });
     }
 }
