@@ -5,5 +5,5 @@
 # OFFEN-TODO
 ## Offline functionality:
     * trivial
-
+## Performance optimisation (e.g.: thumbs nails, compressed files).
 ## UI-Tests (e.g. selenium).
