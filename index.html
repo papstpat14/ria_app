@@ -3,61 +3,12 @@
     <head>
         <meta charset="UTF-8">
         <title>RIA-Moodle</title>
-        <script type="text/javascript">
-            function show(page,withCalendar,withNav,className)
-            {
-                if(className==null||className==undefined)
-                    className="page";
-                var pages = document.getElementsByClassName(className);
-                for(var i = 0;i<pages.length;i++)
-                    pages.item(i).classList.add("hidden");
-                document.getElementById(page).classList.remove("hidden");
-                if(withCalendar)
-                    document.getElementById("calendar").classList.remove("hidden");
-                else
-                    document.getElementById("calendar").classList.add("hidden");
-                if(withNav)
-                    document.getElementById("tablet-nav").classList.remove("hidden");
-                else
-                    document.getElementById("tablet-nav").classList.add("hidden");
-                var phonenav = document.getElementsByClassName("phonenav");
-                for(i = 0;i<phonenav.length;i++)
-                    if(withNav)
-                        phonenav.item(i).classList.remove("hidden");
-                    else
-                        phonenav.item(i).classList.add("hidden");
-
-                document.getElementById("show-menu").checked=false;
-            }
-            window.onresize=function()
-            {
-                if(window.innerWidth>760)
-                    if(!document.getElementById("calendarpage").classList.contains("hidden"))
-                        show("main",true);
-                if(window.innerWidth<=1000)
-                {
-                    if(!document.getElementById("files").classList.contains("hidden"))
-                        document.getElementById("grades").classList.add("hidden");
-                }
-                else
-                {
-                    if(document.getElementById("files").classList.contains("hidden"))
-                        document.getElementById("files").classList.remove("hidden");
-                    if(document.getElementById("grades").classList.contains("hidden"))
-                        document.getElementById("grades").classList.remove("hidden");
-                }
-
-            };
-            function initCourse()
-            {
-                if(window.innerWidth<=1000)
-                    show("files",true,true,"secondarypage");
-            }
-            window.onload=function()
-            {
-                show("main",true);
-            }
-        </script>
+        <script type="text/javascript" src="js/jquery-2.2.1.min.js"></script>
+        <script type="text/javascript" src="js/ui.js"></script>
+        <script type="text/javascript" src="js/api.js"></script>
+        <script type="text/javascript" src="js/dao.js"></script>
+        <script type="text/javascript" src="js/syncWorker.js"></script>
+        <script type="text/javascript" src="js/handlebars.min-latest.js"></script>
         <link rel="stylesheet" href="css/reset.css">
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="sass/body.css">
@@ -68,18 +19,19 @@
     </head>
     <body>
         <header class="row">
-            <a href="#" onclick="show('main',true)">RIA-Moodle</a>
+            <a id="backlink" href="#">RIA-Moodle</a>
+            <div id="logout">
+                <a id="logoutlink" href="#">X</a>
+            </div>
         </header>
         <nav class="row">
-            <label for="show-menu" class="show-menu"><span>Menu</span></label>
+            <label for="show-menu" id="menu-button" class="show-menu"><span>Menu</span></label>
             <input type="checkbox" id="show-menu" role="button"/>
             <ul id="menu">
-                <li><a href="#" onclick="show('login',false)">Login</a></li>
-                <li><a href="#" onclick="show('main',true)">Main</a></li>
-                <li><a href="#" onclick="show('coursepage',true,true);initCourse();">Kurs</a></li>
-                <li class="phonelink"><a href="#" onclick="show('calendarpage',false);" >Kalender</a></li>
-                <li class="phonelink phonenav"><a href="#" onclick="show('files',true,true,'secondarypage')">Dateien</a></li>
-                <li class="phonelink phonenav"><a href="#" onclick="show('grades',true,true,'secondarypage')">Noten</a></li>
+                <li class="phonelink"><a href="#" id="calendarlink" >Kalender</a></li>
+                <li class="phonelink"><a href="#" id="logoutmenulink" >Logout</a></li>
+                <li class="phonelink phonenav"><a href="#" id="filelink" >Dateien</a></li>
+                <li class="phonelink phonenav"><a href="#" id="gradelink" >Noten</a></li>
             </ul>
         </nav>
         <main class="row">
@@ -174,7 +126,16 @@
                 </section>
                 <section id="main" class="page withCalendar">
                     <section id="courses" class="row">
-                        <section class="course">
+                        <script id="course-template" type="text/x-handlebars-template">
+                            {{#each courses}}
+                            <section class="course" id="course{{id}}">
+                                <div>
+                                    <span>{{name}}</span>
+                                </div>
+                            </section>
+                            {{/each}}
+                        </script>
+                        <!--<section class="course">
                             <div>
                                 <span>Rich Internet Applications</span>
                             </div>
@@ -213,7 +174,7 @@
                             <div>
                                 <span>Hardwarenahe Programmierung</span>
                             </div>
-                        </section>
+                        </section>-->
                     </section>
                 </section>
             </section>

@@ -70,6 +70,13 @@ function login(username, password, callback) {
 function logout() {
     document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
+/**
+ * Checks if the user is logged in
+ * @returns {boolean} whether or not the user is logged in
+ */
+function isLoggedIn(){
+    return getCookieByName(TOKEN)!=null&&getCookieByName(TOKEN)!=undefined;
+}
 
 /**
  * gets all subscribed courses for the current user
