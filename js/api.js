@@ -111,7 +111,7 @@ function getAllCourses(callback) {
         });
     }
     else
-        alert("invalid session error");
+        callback(new Error("invalid session error"));
 }
 
 /**
@@ -172,6 +172,7 @@ function getCourseAssignmentGrade(courseId, assignmentName, callback) {
                 var url = createUrl("gradereport_user_get_grades_table", {"userid":data[0].id, "courseid":courseId});
                 if (url != null) {
                     $.get(url, function (data, status) {
+                        var found=false;
                         var tabledata = data.tables[0].tabledata;
                         for(var i = 1; i < tabledata.length; i++) {
                             // searches for the name in the assignment
@@ -179,9 +180,12 @@ function getCourseAssignmentGrade(courseId, assignmentName, callback) {
                             if(tabledata[i].itemname.content.indexOf(assignmentName) != -1) {
                                 var grade = new AssignmentGrade(
                                     tabledata[i].grade.content, tabledata[i].percentage.content);
-                                callback(grade);
+                                callback(grade,true);
+                                found=true;
                             }
                         }
+                        if(!found)
+                            callback(null,false);
                     }).fail(function () {
                         callback(new Error("network error"));
                     });

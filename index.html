@@ -16,6 +16,23 @@
         <link rel="stylesheet" href="sass/main.css">
         <link rel="stylesheet" href="sass/course.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+        <script id="assignment-template" type="text/x-handlebars-template">
+            {{#each assignments}}
+            <section class="assignment">
+                <span>{{name}}</span>
+                <span>Abgabe: {{duedate}}</span>
+            </section>
+            {{/each}}
+        </script>
+        <script id="course-template" type="text/x-handlebars-template">
+            {{#each courses}}
+            <section class="course" id="course{{id}}">
+                <div>
+                    <span>{{name}}</span>
+                </div>
+            </section>
+            {{/each}}
+        </script>
     </head>
     <body>
         <header class="row">
@@ -37,15 +54,11 @@
         <main class="row">
             <section id="calendar">
                 <section class="real-calendar">
-                    <iframe src="calendar.html"  width="100%" name="calendar">
+                    <iframe src="calendar.html"  width="100%" name="calendar" class="calendarframe">
                     </iframe>
                 </section>
                 <section class="assignments">
                     <h2>Abgaben:</h2>
-                    <section class="assignment">
-                        <span>RIA UE01</span>
-                        <span>Abgabe: 14.03.2016</span>
-                    </section>
                     <section class="assignment">
                         <span>RIA UE02</span>
                         <span>Abgabe: 15.03.2016</span>
@@ -72,7 +85,7 @@
                 </section>
                 <section id="calendarpage" class="page basicCalendar" >
                     <section class="real-calendar" style="text-align: center;">
-                        <iframe src="calendar.html" width="100%" name="calendar">
+                        <iframe src="calendar.html" width="100%" name="calendar"  class="calendarframe">
                         </iframe>
                     </section>
                     <section class="assignments">
@@ -126,55 +139,6 @@
                 </section>
                 <section id="main" class="page withCalendar">
                     <section id="courses" class="row">
-                        <script id="course-template" type="text/x-handlebars-template">
-                            {{#each courses}}
-                            <section class="course" id="course{{id}}">
-                                <div>
-                                    <span>{{name}}</span>
-                                </div>
-                            </section>
-                            {{/each}}
-                        </script>
-                        <!--<section class="course">
-                            <div>
-                                <span>Rich Internet Applications</span>
-                            </div>
-                        </section>
-                        <section class="course">
-                            <div>
-                                <span>Projektarbeit</span>
-                            </div>
-                        </section>
-                        <section class="course">
-                            <div>
-                                <span>Projektmanagement 1</span>
-                            </div>
-                        </section>
-                        <section class="course">
-                            <div>
-                                <span>Design Patterns</span>
-                            </div>
-                        </section>
-                        <section class="course">
-                            <div>
-                                <span>Internet Ökonomie</span>
-                            </div>
-                        </section>
-                        <section class="course">
-                            <div>
-                                <span>Distributed Computing</span>
-                            </div>
-                        </section>
-                        <section class="course">
-                            <div>
-                                <span>IT-Recht</span>
-                            </div>
-                        </section>
-                        <section class="course">
-                            <div>
-                                <span>Hardwarenahe Programmierung</span>
-                            </div>
-                        </section>-->
                     </section>
                 </section>
             </section>

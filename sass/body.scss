@@ -107,7 +107,6 @@ nav{
   }
   .assignments
   {
-
     .assignment
     {
       border-top:1px solid $color-background-footer;
@@ -128,6 +127,7 @@ main{
     border-top:2px solid $color-background-footer;
     width:300px;
     float:left;
+    overflow:auto;
     @extend .clearfix;
     @extend .bodyheight;
     position:absolute;

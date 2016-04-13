@@ -149,6 +149,7 @@ function showLogin()
     showPage('login',false);
     hideMenu(true);
     $("#backlink").click(showLogin);
+    hide($("#logout"));
 }
 /**
  * shows the main page
@@ -159,6 +160,8 @@ function showMain()
     hideMenu(false);
     $("#backlink").click(showMain);
     DaoGetCourses(coursesLoaded);
+    showAllAssignments();
+    show($("#logout"));
 }
 /**
  * shows the course page
@@ -176,6 +179,7 @@ function showCalendar()
 {
     showPage('calendarpage',false);
     hideMenu(false);
+    showAllAssignments();
 }
 /**
  * shows the file page
@@ -194,6 +198,10 @@ function showGrades()
     hideMenu(false);
 }
 
+/**
+ * Called when login returns
+ * @param result whether or not login was successfull
+ */
 function loggedIn(result)
 {
     if(result instanceof Error)
@@ -205,6 +213,13 @@ function loggedIn(result)
         notify("Login successfull");
         showMain();
     }
+}
+/**
+ * Shows all assignments
+ */
+function showAllAssignments()
+{
+    DaoGetAllAssignments(calendarLoaded);
 }
 
 /**
@@ -222,7 +237,24 @@ function handleLogin()
         showMain();
     }
 }
-
+/**
+ * Handles click on an event
+ * @param appointment event that was clicked
+ * @returns {Function} handler function
+ */
+function handleEvent(appointment)
+{
+    return function()
+    {
+        DaoGetGrade(appointment.courseid,appointment.name,function(grade)
+        {
+            notify(appointment.name+"\n"
+                  +appointment.desc+"\n"
+                  +"Abzugeben am: "+appointment.duedate+"\n"
+                  +(grade==null||(grade.points=="-"&&grade.percentage=="-")?"Keine Note bis jetzt":("Note"+grade.points!=null?grade.points:grade.percentage)));
+        });
+    }
+}
 
 /**
  * window initialization function
@@ -245,15 +277,58 @@ window.onload=function()
 
     notify("Moodle is now ready");
 };
-
+/**
+ * Renders handlebars template
+ * @param id id of template
+ * @param context context to render
+ * @returns {*} rendered text
+ */
 function renderTemplate(id,context)
 {
     var source=$("#"+id).html();
     var template = Handlebars.compile(source);
     return template(context);
 }
-
+/**
+ * Called when the courses are loaded
+ * @param courses courses to be shown
+ */
 function coursesLoaded(courses)
 {
     $("#courses").html(renderTemplate("course-template",{courses:courses}));
+}
+/**
+ * Called when the appointments are loaded
+ * @param assignments assignments to be shown in calendar and assignment list
+ */
+function calendarLoaded(assignments)
+{
+    $(".assignments").each(function(index,assignment){
+       assignment.innerHTML=renderTemplate("assignment-template",{assignments:assignments});
+    });
+    $(".calendarframe").each(function(index,calendar){
+        var iframeDocument = calendar.contentDocument || iframe.contentWindow.document;
+        if(iframeDocument)
+        {
+            var days = iframeDocument.getElementsByClassName("calendarday");
+            for(var i = 0;i<days.length;i++)
+            {
+                var day = days.item(i);
+                day.onclick=null;
+                if(day.classList.contains("event"))
+                    day.classList.remove("event");
+            }
+
+            assignments.forEach(function(appointment)
+            {
+                var today=new Date(appointment.duedate);
+                var day = iframeDocument.getElementById(today.getFullYear()+"_"+(today.getMonth())+"_"+today.getDate());
+                if(day!=null&&day!=undefined)
+                {
+                    day.classList.add("event");
+                        day.onclick=handleEvent(appointment);
+                }
+            });
+        }
+    });
 }
