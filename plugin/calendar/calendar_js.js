@@ -21,7 +21,11 @@
 * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.            *
 *                                                                      *
  **********************************************************************/
- 
+    var resetFunction=null;
+    function setResetFunction(func)
+    {
+        resetFunction=func;
+    }
     function CalendarJS() {
         this.now = new Date();
         this.dayname = ["Mo","Di","Mi","Do","Fr","Sa","So"];
@@ -284,6 +288,8 @@
                 break;
             }
             this.show();
+            if(resetFunction!=null)
+                resetFunction();
         }
     }
  

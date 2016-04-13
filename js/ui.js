@@ -220,6 +220,7 @@ function loggedIn(result)
 function showAllAssignments()
 {
     DaoGetAllAssignments(calendarLoaded);
+    registerCalendarFunction(showAllAssignments);
 }
 
 /**
@@ -276,7 +277,21 @@ window.onload=function()
     $("#btLogin").click(handleLogin);
 
     notify("Moodle is now ready");
+
+    registerCalendarFunction();
 };
+
+
+function registerCalendarFunction(func)
+{
+    $(".calendarframe").each(function(index,calendar) {
+        var iframeDocument = calendar.contentDocument || iframe.contentWindow.document;
+        if (iframeDocument) {
+            calendar.contentWindow.setResetFunction(func);
+        }
+    });
+}
+
 /**
  * Renders handlebars template
  * @param id id of template
