@@ -68,10 +68,7 @@ function login(username, password, callback) {
  * logs out the user whilst deleting the token cookie
  */
 function logout() {
-    var cookies = $.cookie();
-    for(var cookie in cookies) {
-        $.removeCookie(cookie);
-    }
+    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 /**
  * Checks if the user is logged in

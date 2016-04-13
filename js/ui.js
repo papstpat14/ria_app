@@ -256,14 +256,6 @@ function handleEvent(appointment)
         });
     }
 }
-/**
- * Logout handler
- */
-function handleLogout()
-{
-    logout();
-    showLogin();
-}
 
 /**
  * window initialization function
@@ -278,8 +270,8 @@ window.onload=function()
         showLogin();
 
     $("#calendarlink").click(showCalendar);
-    $("#logoutlink").click(handleLogout);
-    $("#logoutmenulink").click(handleLogout);
+    $("#logoutlink").click(logout);
+    $("#logoutmenulink").click(logout);
     $("#gradelink").click(showGrades);
     $("#filelink").click(showFiles);
     $("#btLogin").click(handleLogin);
