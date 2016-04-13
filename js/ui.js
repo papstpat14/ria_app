@@ -270,8 +270,8 @@ window.onload=function()
         showLogin();
 
     $("#calendarlink").click(showCalendar);
-    $("#logoutlink").click(logout);
-    $("#logoutmenulink").click(logout);
+    $("#logoutlink").click(handleLogout);
+    $("#logoutmenulink").click(handleLogout);
     $("#gradelink").click(showGrades);
     $("#filelink").click(showFiles);
     $("#btLogin").click(handleLogin);
@@ -281,6 +281,14 @@ window.onload=function()
     registerCalendarFunction();
 };
 
+/**
+ * logout for user
+ */
+function handleLogout()
+{
+    logout();
+    showLogin();
+}
 
 function registerCalendarFunction(func)
 {
