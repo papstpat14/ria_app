@@ -278,7 +278,6 @@ window.onload=function()
 
     notify("Moodle is now ready");
 
-    registerCalendarFunction();
 };
 
 /**

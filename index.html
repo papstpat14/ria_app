@@ -27,9 +27,11 @@
         <script id="course-template" type="text/x-handlebars-template">
             {{#each courses}}
             <section class="course" id="course{{id}}">
-                <div>
-                    <span>{{name}}</span>
-                </div>
+                <span>
+			<div>
+                    		<span>{{name}}</span>
+                	</div>
+		</span>
             </section>
             {{/each}}
         </script>
@@ -54,7 +56,7 @@
         <main class="row">
             <section id="calendar">
                 <section class="real-calendar">
-                    <iframe src="calendar.html"  width="100%" name="calendar" class="calendarframe">
+                    <iframe src="calendar.html"  width="100%" name="calendar" class="calendarframe" scrolling="no" seamless="seamless">
                     </iframe>
                 </section>
                 <section class="assignments">
@@ -85,7 +87,7 @@
                 </section>
                 <section id="calendarpage" class="page basicCalendar" >
                     <section class="real-calendar" style="text-align: center;">
-                        <iframe src="calendar.html" width="100%" name="calendar"  class="calendarframe">
+                        <iframe src="calendar.html" width="100%" name="calendar"  class="calendarframe" scrolling="no" seamless="seamless">
                         </iframe>
                     </section>
                     <section class="assignments">
