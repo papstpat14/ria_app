@@ -46,8 +46,8 @@ function testGetCourseAssignmentGrade() {
  */
 function login(username, password, callback) {
     if (username && password) {
-        var url = "https://elearning.fh-joanneum.at/login/token.php?username=" + username +
-            "&password=" + password + "&service=moodle_mobile_app";
+        var url = "https://elearning.fh-joanneum.at/login/token.php?username=" + escape(username) +
+            "&password=" + escape(password) + "&service=moodle_mobile_app";
         $.get(url, function (data, status) {
             if (data.token != null) {
                 document.cookie = TOKEN + data.token + "; Path=/;";

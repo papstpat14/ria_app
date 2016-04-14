@@ -235,7 +235,6 @@ function handleLogin()
     else
     {
         login(username,password,loggedIn);
-        showMain();
     }
 }
 /**
