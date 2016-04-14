@@ -21,7 +21,11 @@
 * 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.            *
 *                                                                      *
  **********************************************************************/
- 
+    var resetFunction=null;
+    function setResetFunction(func)
+    {
+        resetFunction=func;
+    }
     function CalendarJS() {
         this.now = new Date();
         this.dayname = ["Mo","Di","Mi","Do","Fr","Sa","So"];
@@ -157,7 +161,7 @@
             if (firstday == 0) {
                 for (var i=0; i<this.dayname.length; i++) {
                     var prevMonth = (this.mm == 0)?11:this.mm-1;
-                    tr.appendChild( this.getCell( "td", dayspermonth[prevMonth]-6+i, "last_month" ) );
+                    tr.appendChild( this.getCell( "td", dayspermonth[prevMonth]-6+i, "calendarday last_month" ,(prevMonth<11?this.yy:(this.yy-1))+"_"+prevMonth+"_"+(dayspermonth[prevMonth]-6+i)) );
                 }
                 tbody.appendChild( tr );
                 tr = document.createElement('tr');
@@ -165,7 +169,7 @@
  
             for (var i=0; i<firstday; i++, sevendaysaweek++) {
                 var prevMonth = (this.mm == 0)?11:this.mm-1;
-                tr.appendChild( this.getCell( "td", dayspermonth[prevMonth]-firstday+i+1, "last_month" ) );
+                tr.appendChild( this.getCell( "td", dayspermonth[prevMonth]-firstday+i+1, "calendarday last_month",(prevMonth<11?this.yy:this.yy-1)+"_"+prevMonth+"_"+(dayspermonth[prevMonth]-firstday+i+1)) );
  
             }
  
@@ -178,13 +182,13 @@
  
                 var td = null;
                 if (i==this.date && this.mm==this.month && this.yy==this.year && (sevendaysaweek == 5 || sevendaysaweek == 6))
-                    td = this.getCell( "td", i, "today weekend" );
+                    td = this.getCell( "td", i, "calendarday today weekend",this.yy+"_"+this.mm+"_"+i );
                 else if (i==this.date && this.mm==this.month && this.yy==this.year)
-                    td = this.getCell( "td", i, "today" );
+                    td = this.getCell( "td", i, "calendarday today" ,this.yy+"_"+this.mm+"_"+i);
                 else if (sevendaysaweek == 5 || sevendaysaweek == 6)
-                    td = this.getCell( "td", i, "weekend" );
+                    td = this.getCell( "td", i, "calendarday weekend",this.yy+"_"+this.mm+"_"+i);
                 else
-                    td = this.getCell( "td", i, null ); 
+                    td = this.getCell( "td", i, null ,this.yy+"_"+this.mm+"_"+i);
  
                 td.setDate = this.setDate;
                 td.dd = i;
@@ -196,17 +200,24 @@
                 };
                 tr.appendChild( td );
             }
- 
+            var nextMonth=this.mm>=11?0:this.mm+1;
+            var nextYear=this.mm==0?this.yy+1:this.yy;
             var daysNextMonth = 1;
-            for (var i=sevendaysaweek; i<this.dayname.length; i++) 
-                tr.appendChild( this.getCell( "td", daysNextMonth++, "next_month"  ) );
+            for (var i=sevendaysaweek; i<this.dayname.length; i++)
+            {
+                tr.appendChild( this.getCell( "td", daysNextMonth, "calendarday next_month", nextYear+"_"+nextMonth+"_"+daysNextMonth  ) );
+                daysNextMonth++;
+            }
  
             tbody.appendChild( tr );
  
             while (tbody.getElementsByTagName("tr").length<6) {
                 tr = document.createElement('tr');
-                for (var i=0; i<this.dayname.length; i++) 
-                    tr.appendChild( this.getCell( "td", daysNextMonth++, "next_month"  ) );
+                for (var i=0; i<this.dayname.length; i++)
+                {
+                    tr.appendChild( this.getCell( "td", daysNextMonth, "calendarday next_month",nextYear+"_"+nextMonth+"_"+daysNextMonth  ) );
+                    daysNextMonth++;
+                }
                 tbody.appendChild( tr );
             }
  
@@ -243,9 +254,11 @@
 			return str;
 		},
 
-        this.getCell = function(tag, str, cssClass) {
+        this.getCell = function(tag, str, cssClass,id) {
             var El = document.createElement( tag );
             El.appendChild(document.createTextNode( str ));
+            if(id!=undefined&&id!=null)
+                El.id=id;
             if (cssClass != null)
                 El.className = cssClass;
             return El;
@@ -275,6 +288,8 @@
                 break;
             }
             this.show();
+            if(resetFunction!=null)
+                resetFunction();
         }
     }
  

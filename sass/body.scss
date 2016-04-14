@@ -24,10 +24,22 @@ header{
   @extend .nospace;
   @extend  .middle-block;
   @extend .fullwidth;
+  position:relative;
   a{
     text-decoration: none;
     color:$color-background-footer;
   }
+  #logout
+  {
+    border-left:1px solid black;
+    height:$height-header;
+    @extend .central-block;
+    right:0;
+    margin:0;
+    position:absolute;
+    width:70px;
+  }
+
 }
 
 nav{
@@ -95,7 +107,6 @@ nav{
   }
   .assignments
   {
-
     .assignment
     {
       border-top:1px solid $color-background-footer;
@@ -116,6 +127,7 @@ main{
     border-top:2px solid $color-background-footer;
     width:300px;
     float:left;
+    overflow:auto;
     @extend .clearfix;
     @extend .bodyheight;
     position:absolute;
@@ -183,6 +195,9 @@ footer{
   }
   header{
     font-size: $header-font-size-smartphone;
+    #logout{
+      display:none;
+    }
   }
 
   main{

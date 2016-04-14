@@ -130,3 +130,7 @@
 				width: 100%;/*include by RIA-Moodle*/
 				background-color: #F6F6F6;
 			}
+
+			.event{
+				background-color:indianred;
+			}
