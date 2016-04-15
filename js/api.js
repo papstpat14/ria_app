@@ -1,5 +1,6 @@
 const TOKEN = "token=";
 const USERNAME = "username=";
+const USERID = "userid=";
 
 //TODO replace console logs with actual logic
 /*
@@ -52,7 +53,17 @@ function login(username, password, callback) {
             if (data.token != null) {
                 document.cookie = TOKEN + data.token;
                 document.cookie = USERNAME + username;
-                callback("successfully logged-in");
+                var url = createUrl("core_user_get_users_by_field", {"field": "username", "values[0]": username});
+                $.get(url, function (data, status) {
+                    if (data[0] != null && data[0].id != null) {
+                        document.cookie = USERID + data[0].id;
+                        callback("successfully logged-in");
+                    }
+                    else
+                        callback(new Error("other error"));
+                }).fail(function () {
+                    callback(new Error("network error"));
+                });
             }
             else if (data.error != null)
                 callback(new Error("error: " + data.error));
@@ -86,34 +97,20 @@ function isLoggedIn(){
  * @param callback
  */
 function getAllCourses(callback) {
-    var url = createUrl("core_user_get_users_by_field",  {"field":"username", "values[0]":getCookieByName(USERNAME)});
-    if(url != null) {
-        $.get(url, function(data, status) {
-            if(data[0] != null && data[0].id != null) {
-                url = createUrl("core_enrol_get_users_courses", {"userid":data[0].id});
-                if(url != null) {
-                    $.get(url, function(data, status) {
-                        var courses = [];
-                        data.forEach(function(item) {
-                            var course = new Course(item.id, item.fullname);
-                            courses.push(course);
-                            // sorts course name alphabetically
-                            courses.sort(function(a, b) {
-                                return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);
-                            });
-                        });
-                        callback(courses);
-                    }).fail(function() {
-                        callback(new Error("network error"));
-                    });
-                }
-                else
-                    callback(new Error("invalid session error"));
-            }
-            else
-                callback(new Error("other error"));
-
-        }).fail(function() {
+    url = createUrl("core_enrol_get_users_courses", {"userid": getCookieByName(USERID)});
+    if (url != null) {
+        $.get(url, function (data, status) {
+            var courses = [];
+            data.forEach(function (item) {
+                var course = new Course(item.id, item.fullname);
+                courses.push(course);
+                // sorts course name alphabetically
+                courses.sort(function (a, b) {
+                    return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);
+                });
+            });
+            callback(courses);
+        }).fail(function () {
             callback(new Error("network error"));
         });
     }
@@ -181,44 +178,32 @@ function getCourseAssignments(courseIds, callback) {
  * @param callback
  */
 function getCourseAssignmentGrade(courseId, assignmentNames, callback) {
-    var url = createUrl("core_user_get_users_by_field",  {"field":"username", "values[0]":getCookieByName(USERNAME)});
-    if(url != null) {
-        $.get(url, function(data, status) {
-            if(data[0] != null && data[0].id != null) {
-                var url = createUrl("gradereport_user_get_grades_table", {"userid":data[0].id, "courseid":courseId});
-                if (url != null) {
-                    $.get(url, function (data, status) {
-                        var tabledata = data.tables[0].tabledata;
-                        var grades=[];
-                        for(var i = 1; i < tabledata.length; i++) {
-                            // searches for the name in the assignment
-                            // unfortunately there is no other way to concatenate assignment with grade
-                            assignmentNames.forEach(function(assignmentName){
-                                if(tabledata[i].itemname!=undefined)
-                                {
-                                    if(tabledata[i].itemname.content.indexOf(assignmentName) != -1) {
-                                        var grade = new AssignmentGrade(courseId,assignmentName,true,
-                                            tabledata[i].grade.content, tabledata[i].percentage.content);
-                                        grades.push(grade);
-                                    }
-                                }
-                            });
+    var url = createUrl("gradereport_user_get_grades_table", {"userid":getCookieByName(USERID), "courseid":courseId});
+    if (url != null) {
+        $.get(url, function (data, status) {
+            var tabledata = data.tables[0].tabledata;
+            var grades=[];
+            for(var i = 1; i < tabledata.length; i++) {
+                // searches for the name in the assignment
+                // unfortunately there is no other way to concatenate assignment with grade
+                assignmentNames.forEach(function(assignmentName){
+                    if(tabledata[i].itemname!=undefined)
+                    {
+                        if(tabledata[i].itemname.content.indexOf(assignmentName) != -1) {
+                            var grade = new AssignmentGrade(courseId,assignmentName,true,
+                                tabledata[i].grade.content, tabledata[i].percentage.content);
+                            grades.push(grade);
                         }
-                        callback(grades);
-                    }).fail(function () {
-                        callback(new Error("network error"));
-                    });
-                }
-                else
-                    callback(new Error("invalid session error"));
+                    }
+                });
             }
-            else
-                callback(new Error("other error"));
-
-        }).fail(function() {
+            callback(grades);
+        }).fail(function () {
             callback(new Error("network error"));
         });
     }
+    else
+        callback(new Error("invalid session error"));
 }
 
 /**
@@ -274,6 +259,9 @@ function Assignment(courseid,name, desc, duedate) {
 }
 
 function AssignmentGrade(courseid, assignmentName, found, points, percentage) {
+    this.courseid = courseid;
+    this.assignmentName = assignmentName;
+    this.found = found;
     this.points = points;
     this.percentage = percentage;
 }
