@@ -9,7 +9,7 @@ function DaoInitStorage()
 {
     if(typeof(Storage) !== "undefined") {
         storage=true;
-        setTimeout(loadData,100);
+        loadData();
     } else {
         storage=false;
         notify("Offline storage not supported, cache deactivated");
@@ -55,22 +55,28 @@ function DaoGetAllAssignments(callback)
     {
         var numCourses=0;
         var assignmentList=[];
+        var courseids=[];
+        var allfound=true;
         courses.forEach(function(course)
         {
-           DaoGetAssignments(course.id,function(assignments)
-           {
-               assignments.forEach(function(assignment)
-               {
-                  assignment.courseid=course.id;
-                  assignmentList.push(assignment);
-               });
-               numCourses++;
-               if(numCourses>=courses.length)
-               {
-                   callback(assignmentList);
-               }
-           });
+            courseids.push(course.id);
+            var courseid=course.id;
+            if (!storage || localStorage.getItem("assignments_" + courseid) == null) {
+                allfound=false;
+            }
+            else {
+                var assignments = JSON.parse(localStorage.getItem("assignments_" + courseid));
+                assignments.forEach(function(assignment){
+                    assignmentList.push(assignment);
+                });
+            }
         });
+        if(allfound)
+        {
+            callback(assignmentList);
+        }
+        else
+            DaoLoadAllAssignments(courseids,callback);
     });
 }
 /**
@@ -99,6 +105,40 @@ function DaoGetGrade(courseid, assignmentname,callback)
     }
 }
 /**
+ * Gets the grade for the given assignment
+ * @param courseid courseid of the assignment
+ * @param assignmentnames name of the assignment
+ * @param callback callback to be called when the grade arrives
+ *
+ */
+function DaoGetGrades(courseid, assignmentnames,callback)
+{
+    var grades=[];
+    var foundAll=true;
+    assignmentnames.forEach(function(assignmentame)
+    {
+        if(!storage||localStorage.getItem("grade_found_"+courseid+"_"+assignmentname)==null)
+        {
+            foundAll=false;
+        }
+        else {
+            if(JSON.parse(localStorage.getItem("grade_found_"+courseid+"_"+assignmentname)))
+            {
+                grades.push(JSON.parse(localStorage.getItem("grade_"+courseid+"_"+assignmentname)));
+            }
+            else
+                grades.push(new AssignmentGrade(courseid,assignmentame,false,null,null));
+        }
+
+    });
+    if(foundAll)
+        callback(grades);
+    else
+    {
+        DaoLoadGrades(courseid,assignmentnames,callback);
+    }
+}
+/**
  * loads all courses
  * @param callback
  *
@@ -124,7 +164,7 @@ function DaoLoadCourses(callback)
  */
 function DaoLoadAssigments(courseid, callback)
 {
-    getCourseAssignments(courseid,function(assignment)
+    getCourseAssignments([courseid],function(assignment)
     {
        if(assignment instanceof Error)
        {
@@ -136,6 +176,25 @@ function DaoLoadAssigments(courseid, callback)
        }
     });
 }
+
+/**
+ * Loads all assignments for the list of courses
+ * @param courseids
+ * @param callback
+ */
+function DaoLoadAllAssignments(courseids,callback)
+{
+    getCourseAssignments(courseids,function(assignments) {
+        if(assignments instanceof Error)
+        {
+            notify(assignments);
+        }
+        else
+        {
+            callback(assignments);
+        }
+    });
+}
 /**
  * Loads grade for the given assignment
  * @param courseid
@@ -145,17 +204,48 @@ function DaoLoadAssigments(courseid, callback)
  */
 function DaoLoadGrade(courseid,assignmentname,callback)
 {
-    getCourseAssignmentGrade(courseid,assignmentname,function(grade,found)
+    getCourseAssignmentGrade(courseid,[assignmentname],function(grades)
     {
-       if(grade instanceof Error)
+       if(grades instanceof Error)
        {
            notify(grade);
        }
        else {
-           if(found)
-            callback(grade,true);
+           if(grades.length>0)
+            callback(grades[0]);
            else
-            callback(null,false);
+            callback(new AssignmentGrade(courseid,assignmentname,false,null,null));
        }
+    });
+}
+
+/**
+ * Loads grade for the given assignment
+ * @param courseid
+ * @param assignmentnames list of assignments to get the grade for
+ * @param callback
+ *
+ */
+function DaoLoadGrades(courseid,assignmentnames,callback)
+{
+    getCourseAssignmentGrade(courseid,assignmentnames,function(grades)
+    {
+        if(grades instanceof Error)
+        {
+            notify(grade);
+        }
+        else {
+            assignmentnames.forEach(function(assignmentName){
+                var found=false;
+                grades.forEach(function(grade)
+                {
+                   if(grade.courseid==courseid && grade.name==assignmentName)
+                   {
+                       grades.push(new AssignmentGrade(courseid,assignmentName,false,null,null));
+                   }
+                });
+            });
+            callback(grades);
+        }
     });
 }

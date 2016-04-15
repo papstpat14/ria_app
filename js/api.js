@@ -140,19 +140,28 @@ function getCourseDetails(courseId, callback) {
 
 /**
  * gets all assignment details for a specific course
- * @param courseId
+ * @param courseIds collection of courses to get assignments for
  * @param callback
  */
-function getCourseAssignments(courseId, callback) {
-    var url = createUrl("mod_assign_get_assignments", {"courseids[0]": courseId});
+function getCourseAssignments(courseIds, callback) {
+    var index=0;
+    var params={};
+    courseIds.forEach(function(courseId){
+        params["courseids["+index+"]"]=courseId;
+        index++;
+    });
+
+    var url = createUrl("mod_assign_get_assignments", params);
     if(url != null) {
         $.get(url, function(data, status) {
             var assignments = [];
-            data.courses[0].assignments.forEach(function(item) {
-                // multiplied by 1000 so that the argument is in milliseconds, not seconds.
-                var duedate = item.duedate ? new Date(item.duedate*1000) : null;
-                var assign = new Assignment(item.name, item.intro, duedate);
-                assignments.push(assign);
+            data.courses.forEach(function(course) {
+                course.assignments.forEach(function (item) {
+                    // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+                    var duedate = item.duedate ? new Date(item.duedate * 1000) : null;
+                    var assign = new Assignment(course.id, item.name, item.intro, duedate);
+                    assignments.push(assign);
+                });
             });
             callback(assignments);
         }).fail(function() {
@@ -166,10 +175,10 @@ function getCourseAssignments(courseId, callback) {
 /**
  * gets the grade for a assignment with the given name in the specific course
  * @param courseId
- * @param assignmentName
+ * @param assignmentNames list of assignments to get the grades for
  * @param callback
  */
-function getCourseAssignmentGrade(courseId, assignmentName, callback) {
+function getCourseAssignmentGrade(courseId, assignmentNames, callback) {
     var url = createUrl("core_user_get_users_by_field",  {"field":"username", "values[0]":getCookieByName(USERNAME)});
     if(url != null) {
         $.get(url, function(data, status) {
@@ -177,20 +186,23 @@ function getCourseAssignmentGrade(courseId, assignmentName, callback) {
                 var url = createUrl("gradereport_user_get_grades_table", {"userid":data[0].id, "courseid":courseId});
                 if (url != null) {
                     $.get(url, function (data, status) {
-                        var found=false;
                         var tabledata = data.tables[0].tabledata;
+                        var grades=[];
                         for(var i = 1; i < tabledata.length; i++) {
                             // searches for the name in the assignment
                             // unfortunately there is no other way to concatenate assignment with grade
-                            if(tabledata[i].itemname.content.indexOf(assignmentName) != -1) {
-                                var grade = new AssignmentGrade(
-                                    tabledata[i].grade.content, tabledata[i].percentage.content);
-                                callback(grade,true);
-                                found=true;
-                            }
+                            assignmentNames.forEach(function(assignmentName){
+                                if(tabledata[i].itemname!=undefined)
+                                {
+                                    if(tabledata[i].itemname.content.indexOf(assignmentName) != -1) {
+                                        var grade = new AssignmentGrade(courseId,assignmentName,true,
+                                            tabledata[i].grade.content, tabledata[i].percentage.content);
+                                        grades.push(grade);
+                                    }
+                                }
+                            });
                         }
-                        if(!found)
-                            callback(null,false);
+                        callback(grades);
                     }).fail(function () {
                         callback(new Error("network error"));
                     });
@@ -252,13 +264,14 @@ function Course(id, name) {
 }
 
 // duedate is null, if there is no duedate for the assignment
-function Assignment(name, desc, duedate) {
+function Assignment(courseid,name, desc, duedate) {
+    this.courseid = courseid;
     this.name = name;
     this.desc = desc;
     this.duedate = duedate;
 }
 
-function AssignmentGrade(points, percentage) {
+function AssignmentGrade(courseid, assignmentName, found, points, percentage) {
     this.points = points;
     this.percentage = percentage;
 }

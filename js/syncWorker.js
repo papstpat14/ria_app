@@ -9,10 +9,12 @@ function loadCourses()
         inprogress["courses"]=true;
         DaoLoadCourses(function(courses){
             localStorage.setItem("Courses",JSON.stringify(courses));
+            var courseids=[];
             courses.forEach(function(course)
             {
-               loadAssignments(course);
+               courseids.push(course.id);
             });
+            loadAllAssignments(courseids);
             inprogress["courses"]=false;
         });
     }
@@ -21,40 +23,50 @@ function loadCourses()
  * loads assignments for the given course
  * @param course
  */
-function loadAssignments(course)
+function loadAllAssignments(courseids)
 {
-    if(inprogress["assignment_"+course.id]==undefined||!inprogress["assignment_"+course.id])
+    if(inprogress["assignments"]==undefined||!inprogress["assignments"])
     {
-        inprogress["assignment_"+course.id]=true;
-        DaoLoadAssigments(course.id,function(assignments)
+        inprogress["assignments"]=true;
+        DaoLoadAllAssignments(courseids,function(assignments)
         {
-            localStorage.setItem("assignments_"+course.id,JSON.stringify(assignments));
-            assignments.forEach(function(assignment)
-            {
-               loadGrade(course,assignment);
+            var courseAssigments = {};
+            assignments.forEach(function(assignment){
+               if(courseAssigments[assignment.courseid]==undefined||courseAssigments[assignment.courseid]==null){
+                   courseAssigments[assignment.courseid]=[];
+               }
+               courseAssigments[assignment.courseid].push(assignment);
             });
-            inprogress["assignment_"+course.id]=false;
+            for(var key in courseAssigments)
+            {
+                localStorage.setItem("assignments_"+key,JSON.stringify(courseAssigments[key]));
+                loadGrades(key,courseAssigments[key]);
+            }
+            inprogress["assignments"]=false;
         });
     }
 }
 /**
  * loads grade for the given assignment
- * @param course
- * @param assignment
+ * @param courseid
+ * @param assignments
  */
-function loadGrade(course,assignment)
+function loadGrades(courseid,assignments)
 {
-    var inProgressId = "grade_"+course.id+"_"+assignment.name;
+    var inProgressId = "grades_"+courseid;
     if(inprogress[inProgressId]==undefined||!inprogress[inProgressId])
     {
         inprogress[inProgressId]=true;
-        DaoLoadGrade(course.id,assignment.name,function(grade,found)
+        DaoLoadGrades(courseid,assignments,function(grades)
         {
-            localStorage.setItem("grade_found_"+course.id+"_"+assignment.name,JSON.stringify(found));
-            if(found)
+            grades.forEach(function(grade)
             {
-                localStorage.setItem("grade_"+course.id+"_"+assignment.name,JSON.stringify(grade));
-            }
+                localStorage.setItem("grade_found_"+courseid+"_"+grade.name,JSON.stringify(grade.found));
+                if(found)
+                {
+                    localStorage.setItem("grade_"+courseid+"_"+grade.name,JSON.stringify(grade));
+                }
+            });
             inprogress[inProgressId]=false;
         });
     }
@@ -65,5 +77,5 @@ function loadGrade(course,assignment)
 function loadData()
 {
     loadCourses();
-    setTimeout(loadData,100);
+    setTimeout(loadData,10000);
 }
