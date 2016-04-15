@@ -50,8 +50,8 @@ function login(username, password, callback) {
             "&password=" + escape(password) + "&service=moodle_mobile_app";
         $.get(url, function (data, status) {
             if (data.token != null) {
-                document.cookie = TOKEN + data.token + "; Path=/;";
-                document.cookie = USERNAME + username + "; Path=/;";
+                document.cookie = TOKEN + data.token;
+                document.cookie = USERNAME + username;
                 callback("successfully logged-in");
             }
             else if (data.error != null)
@@ -68,8 +68,10 @@ function login(username, password, callback) {
  * logs out the user whilst deleting the token cookie
  */
 function logout() {
-    document.cookie = TOKEN + "; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-    document.cookie = USERNAME + "; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+    var cookies = $.cookie();
+    for(var cookie in cookies) {
+        $.removeCookie(cookie);
+    }
 }
 /**
  * Checks if the user is logged in
