@@ -324,8 +324,27 @@ function coursesLoaded(courses)
  */
 function calendarLoaded(assignments)
 {
+    var visibleAssignments = [];
+    assignments.forEach(function(assignment)
+    {
+       assignment.duedate=new Date(assignment.duedate);
+       if(assignment.duedate>=new Date())
+       {
+           visibleAssignments.push(assignment);
+       }
+    });
+    visibleAssignments.sort(function(a,b)
+    {
+        if(a.duedate==null&& b.duedate==null)
+            return 0;
+        if(a.duedate==null)
+            return 1;
+        if(b.duedate==null)
+            return -1;
+        return a.duedate.getTime()- b.duedate.getTime();
+    });
     $(".assignments").each(function(index,assignment){
-       assignment.innerHTML=renderTemplate("assignment-template",{assignments:assignments});
+       assignment.innerHTML=renderTemplate("assignment-template",{assignments:visibleAssignments});
     });
     $(".calendarframe").each(function(index,calendar){
         var iframeDocument = calendar.contentDocument || iframe.contentWindow.document;

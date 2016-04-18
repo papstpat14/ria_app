@@ -208,7 +208,7 @@ function DaoLoadGrade(courseid,assignmentname,callback)
     {
        if(grades instanceof Error)
        {
-           notify(grade);
+           notify(grades);
        }
        else {
            if(grades.length>0)
@@ -232,7 +232,7 @@ function DaoLoadGrades(courseid,assignmentnames,callback)
     {
         if(grades instanceof Error)
         {
-            notify(grade);
+            notify(grades);
         }
         else {
             assignmentnames.forEach(function(assignmentName){
