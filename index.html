@@ -29,11 +29,28 @@
             {{#each courses}}
             <section class="course" id="course{{id}}">
                 <span>
-			<div>
+			        <div>
                     		<span>{{name}}</span>
                 	</div>
-		</span>
+		        </span>
             </section>
+            {{/each}}
+        </script>
+        <script id="grade-template" type="text/x-handlebars-template">
+            <tr>
+                <th>Abgabe</th>
+                <th>Bewertung</th>
+            </tr>
+            {{#each grades}}
+            <tr>
+                <td>{{assignmentName}}</td>
+                <td>{{grade}}</td>
+            </tr>
+            {{/each}}
+        </script>
+        <script id="file-template" type="text/x-handlebars-template">
+            {{#each files}}
+            <li>{{name}} <a href="{{url}}">Download</a></li>
             {{/each}}
         </script>
     </head>
@@ -48,6 +65,8 @@
             <label for="show-menu" id="menu-button" class="show-menu"><span>Menu</span></label>
             <input type="checkbox" id="show-menu" role="button"/>
             <ul id="menu">
+                <li class="tabletlink courselink"><a href="#" id="filesec">Dateien</a></li>
+                <li class="tabletlink courselink"><a href="#" id="gradesec">Noten</a></li>
                 <li class="phonelink"><a href="#" id="calendarlink" >Kalender</a></li>
                 <li class="phonelink"><a href="#" id="logoutmenulink" >Logout</a></li>
                 <li class="phonelink phonenav"><a href="#" id="filelink" >Dateien</a></li>
@@ -70,12 +89,6 @@
                         <span>RIA UE03</span>
                         <span>Abgabe: 16.03.2016</span>
                     </section>
-                </section>
-                <section id="tablet-nav">
-                    <ul class="phonemenu">
-                        <li><a href="#" onclick="show('files',true,true,'secondarypage')">Dateien</a></li>
-                        <li><a href="#" onclick="show('grades',true,true,'secondarypage')">Noten</a></li>
-                    </ul>
                 </section>
             </section>
             <section id="pages">
@@ -110,33 +123,14 @@
                 <section id="coursepage" class="coursepage page withCalendar" >
                     <section id="files" class="secondarypage">
                         <div>
-                            <h1>Rich Internet Applications</h1>
+                            <h1 id="courseHeading">Rich Internet Applications</h1>
                             <ul id="ulFiles">
-                                <li>File 1 <a href="#">Download</a></li>
-                                <li>File 2 <a href="#">Download</a></li>
-                                <li>File 3 <a href="#">Download</a></li>
-                                <li>File 4 <a href="#">Download</a></li>
                             </ul>
                         </div>
                     </section>
                     <section id="grades"  class="secondarypage">
-                        <table>
-                            <tr>
-                                <th>Abgabe</th>
-                                <th>Bewertung</th>
-                            </tr>
-                            <tr>
-                                <td>RIA Abgabe 1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>RIA Abgabe 2</td>
-                                <td>2</td>
-                            </tr>
-                            <tr>
-                                <td>RIA Abgabe 3</td>
-                                <td>3</td>
-                            </tr>
+                        <table id="gradetable">
+
                         </table>
                     </section>
                 </section>

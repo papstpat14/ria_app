@@ -47,6 +47,9 @@
         padding: 0;
         border: none;
         border-bottom: 2px solid $color-background-special;
+        span{
+          display:block;
+        }
         div {
           border: none;
           padding: 10px;

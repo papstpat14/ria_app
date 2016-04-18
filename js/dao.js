@@ -115,7 +115,7 @@ function DaoGetGrades(courseid, assignmentnames,callback)
 {
     var grades=[];
     var foundAll=true;
-    assignmentnames.forEach(function(assignmentame)
+    assignmentnames.forEach(function(assignmentname)
     {
         if(!storage||localStorage.getItem("grade_found_"+courseid+"_"+assignmentname)==null)
         {
@@ -127,7 +127,7 @@ function DaoGetGrades(courseid, assignmentnames,callback)
                 grades.push(JSON.parse(localStorage.getItem("grade_"+courseid+"_"+assignmentname)));
             }
             else
-                grades.push(new AssignmentGrade(courseid,assignmentame,false,null,null));
+                grades.push(new AssignmentGrade(courseid,assignmentname,false,null,null));
         }
 
     });
@@ -136,6 +136,16 @@ function DaoGetGrades(courseid, assignmentnames,callback)
     else
     {
         DaoLoadGrades(courseid,assignmentnames,callback);
+    }
+}
+
+function DaoGetDetails(courseid, callback)
+{
+    if (!storage || localStorage.getItem("details_" + courseid) == null) {
+        DaoLoadDetails(courseid, callback);
+    }
+    else {
+        callback(JSON.parse(localStorage.getItem("details_" + courseid)));
     }
 }
 /**
@@ -239,13 +249,29 @@ function DaoLoadGrades(courseid,assignmentnames,callback)
                 var found=false;
                 grades.forEach(function(grade)
                 {
-                   if(grade.courseid==courseid && grade.name==assignmentName)
+                   if(grade.courseid==courseid && grade.assignmentName==assignmentName)
                    {
-                       grades.push(new AssignmentGrade(courseid,assignmentName,false,null,null));
+                       found=true;
                    }
                 });
+                if(!found)
+                    grades.push(new AssignmentGrade(courseid,assignmentName,false,null,null));
             });
             callback(grades);
         }
+    });
+}
+
+function DaoLoadDetails(courseid,callback)
+{
+    getCourseDetails(courseid,function(details)
+    {
+       if(details instanceof Error)
+       {
+           notify(details);
+       }
+       else {
+           callback(details);
+       }
     });
 }

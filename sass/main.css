@@ -80,6 +80,8 @@
       padding: 0;
       border: none;
       border-bottom: 2px solid #76b82a; }
+      #main #courses .course span {
+        display: block; }
       #main #courses .course div {
         border: none;
         padding: 10px; } }
