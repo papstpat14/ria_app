@@ -71,10 +71,6 @@
       text-align: center; }
 
 @media screen and (max-width: 1000px) {
-  #tablet-nav {
-    display: block;
-    height: auto; }
-
   .coursepage {
     padding-right: 0;
     text-align: center;
@@ -82,7 +78,11 @@
     .coursepage #grades {
       position: relative;
       width: 100%;
-      background-color: #c0c0c0; } }
+      background-color: #c0c0c0; }
+
+  .tabletlink {
+    height: 50px;
+    visibility: visible; } }
 @media screen and (max-width: 760px) {
   .coursepage {
     padding-right: 0; } }

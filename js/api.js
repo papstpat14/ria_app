@@ -190,9 +190,8 @@ function getCourseAssignmentGrade(courseId, assignmentNames, callback) {
                     if(tabledata[i].itemname!=undefined)
                     {
                         if(tabledata[i].itemname.content.indexOf(assignmentName) != -1) {
-                            var grade = new AssignmentGrade(courseId,assignmentName,true,
-                                tabledata[i].grade.content, tabledata[i].percentage.content);
-                            grades.push(grade);
+                            var currentGrade = new AssignmentGrade(courseId,assignmentName,true, tabledata[i].grade.content, tabledata[i].percentage.content);
+                            grades.push(currentGrade);
                         }
                     }
                 });
