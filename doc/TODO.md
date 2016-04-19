@@ -10,8 +10,3 @@
 
 offline manifest (Schalk)
 vibration (Kainz)
-
-
-## miscellaneous
-remove unnecessary files
-- test.html
