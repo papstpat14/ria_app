@@ -21,3 +21,6 @@
 * PHP-REST Client: <https://github.com/moodlehq/sample-ws-clients/tree/master/PHP-REST>
 * z.b. URL zum Webservice vom elearning Moodle: <https://elearning.fh-joanneum.at/webservice/rest/server.php>
 
+## Link zur Doku
+also available here:<br>
+https://ria.kuk-it.eu/moodle/admin/webservice/documentation.php

@@ -83,9 +83,9 @@ function showPage(page,withCalendar,withNav,className)
     else
         hide($("#calendar"));
     if(withNav)
-        show($("#tablet-nav"));
+        show($(".courselink"));
     else
-        hide($("#tablet-nav"));
+        hide($(".courselink"));
     var phonenav = document.getElementsByClassName("phonenav");
     for(i = 0;i<phonenav.length;i++)
         if(withNav)
@@ -194,7 +194,7 @@ function showFiles()
  */
 function showGrades()
 {
-    show('grades',true,true,'secondarypage');
+    showPage('grades',true,true,'secondarypage');
     hideMenu(false);
 }
 
@@ -235,7 +235,6 @@ function handleLogin()
     else
     {
         login(username,password,loggedIn);
-        showMain();
     }
 }
 /**
@@ -273,7 +272,9 @@ window.onload=function()
     $("#logoutlink").click(handleLogout);
     $("#logoutmenulink").click(handleLogout);
     $("#gradelink").click(showGrades);
+    $("#gradesec").click(showGrades);
     $("#filelink").click(showFiles);
+    $("#filesec").click(showFiles);
     $("#btLogin").click(handleLogin);
 
     notify("Moodle is now ready");
@@ -289,6 +290,10 @@ function handleLogout()
     showLogin();
 }
 
+/**
+ * Registers the given function to the calendar
+ * @param func function to be registered
+ */
 function registerCalendarFunction(func)
 {
     $(".calendarframe").each(function(index,calendar) {
@@ -297,6 +302,51 @@ function registerCalendarFunction(func)
             calendar.contentWindow.setResetFunction(func);
         }
     });
+}
+
+function handleCourse(course)
+{
+    return function()
+    {
+        $("#courseHeading").html(course.name);
+        DaoGetAssignments(course.id, function(assignments)
+        {
+            calendarLoaded(assignments);
+            var assignmentNames=[];
+            assignments.forEach(function(assignment)
+            {
+                assignmentNames.push(assignment.name);
+            });
+            DaoGetGrades(course.id,assignmentNames,function(grades){
+                var visibleGrades=[];
+                grades.forEach(function(grade)
+                {
+                   if(grade.found&&(grade.points!="-"||grade.percentage!="-"))
+                   {
+                       grade.grade=grade.points=="-"?grade.percentage:grade.points;
+                       visibleGrades.push(grade);
+                   }
+                });
+                $("#gradetable").html(renderTemplate("grade-template",{grades:visibleGrades}));
+            });
+        });
+        DaoGetDetails(course.id,function(details)
+        {
+            var files = [];
+            details.forEach(function(detail)
+            {
+               detail.modules.forEach(function(module)
+               {
+                  if(module.modname=="resource")
+                  {
+                      files.push(module);
+                  }
+               });
+            });
+            $("#ulFiles").html(renderTemplate("file-template",{files:files}));
+        });
+        showCourse();
+    };
 }
 
 /**
@@ -318,6 +368,10 @@ function renderTemplate(id,context)
 function coursesLoaded(courses)
 {
     $("#courses").html(renderTemplate("course-template",{courses:courses}));
+    courses.forEach(function(course)
+    {
+       $("#course"+course.id).click(handleCourse(course));
+    });
 }
 /**
  * Called when the appointments are loaded
@@ -325,8 +379,27 @@ function coursesLoaded(courses)
  */
 function calendarLoaded(assignments)
 {
+    var visibleAssignments = [];
+    assignments.forEach(function(assignment)
+    {
+       assignment.duedate=new Date(assignment.duedate);
+       if(assignment.duedate>=new Date())
+       {
+           visibleAssignments.push(assignment);
+       }
+    });
+    visibleAssignments.sort(function(a,b)
+    {
+        if(a.duedate==null&& b.duedate==null)
+            return 0;
+        if(a.duedate==null)
+            return 1;
+        if(b.duedate==null)
+            return -1;
+        return a.duedate.getTime()- b.duedate.getTime();
+    });
     $(".assignments").each(function(index,assignment){
-       assignment.innerHTML=renderTemplate("assignment-template",{assignments:assignments});
+       assignment.innerHTML=renderTemplate("assignment-template",{assignments:visibleAssignments});
     });
     $(".calendarframe").each(function(index,calendar){
         var iframeDocument = calendar.contentDocument || iframe.contentWindow.document;

@@ -32,11 +32,6 @@
 }
 
 @media screen and (max-width :$max-width-tablet){
-  #tablet-nav
-  {
-    display:block;
-    height:auto;
-  }
 
   .coursepage{
     padding-right:0;
@@ -47,6 +42,12 @@
       width:100%;
       background-color:$color-background-normal;
     }
+  }
+
+  .tabletlink
+  {
+    height: $height-nav-element;
+    visibility: visible;
   }
 }
 

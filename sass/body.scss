@@ -223,32 +223,9 @@ footer{
   @extend .fullsize;
 }
 
-#tablet-nav
+.tabletlink
 {
-  display:none;
-  height:0;
-  width:300px;
-  position:fixed;
-  bottom:100px;
-  .phonemenu
-  {
-    width:100%;
-    li{
-      @extend .central-block;
-      height: $height-nav-element;
-      margin-bottom:1px;
-      background-color: $color-background-special;
-      width:100%;
-      a{
-        width:100%;
-        text-decoration: none;
-        color:$color-foreground-nav;
-      }
-    }
-    li:hover{
-      background-color:$color-background-normal;
-    }
-  }
+  visibility: collapse;
 }
 
 .hidden

@@ -11,22 +11,22 @@
 .snapToBottom, footer {
   bottom: 0; }
 
-.centertext, .central-block, header, header #logout, nav .show-menu, footer, #tablet-nav .phonemenu li, .central-inline, nav ul li {
+.centertext, .central-block, header, header #logout, nav .show-menu, footer, .central-inline, nav ul li {
   text-align: center; }
 
 .centered {
   margin-left: auto;
   margin-right: auto; }
 
-.middle > span, .middle-block > span, .central-block > span, header > span, header #logout > span, nav .show-menu > span, footer > span, #tablet-nav .phonemenu li > span, .middle-inline > span, .central-inline > span, nav ul li > span, .middle > a, .middle-block > a, .central-block > a, header > a, header #logout > a, nav .show-menu > a, footer > a, #tablet-nav .phonemenu li > a, .middle-inline > a, .central-inline > a, nav ul li > a {
+.middle > span, .middle-block > span, .central-block > span, header > span, header #logout > span, nav .show-menu > span, footer > span, .middle-inline > span, .central-inline > span, nav ul li > span, .middle > a, .middle-block > a, .central-block > a, header > a, header #logout > a, nav .show-menu > a, footer > a, .middle-inline > a, .central-inline > a, nav ul li > a {
   display: table-cell;
   vertical-align: middle; }
 
-.middle > table, .middle-block > table, .central-block > table, header > table, header #logout > table, nav .show-menu > table, footer > table, #tablet-nav .phonemenu li > table, .middle-inline > table, .central-inline > table, nav ul li > table {
+.middle > table, .middle-block > table, .central-block > table, header > table, header #logout > table, nav .show-menu > table, footer > table, .middle-inline > table, .central-inline > table, nav ul li > table {
   display: inline-table;
   vertical-align: middle; }
 
-.middle-block, .central-block, header, header #logout, nav .show-menu, footer, #tablet-nav .phonemenu li {
+.middle-block, .central-block, header, header #logout, nav .show-menu, footer {
   display: table; }
 
 .middle-inline, .central-inline, nav ul li {
@@ -88,10 +88,10 @@ nav {
     vertical-align: middle;
     border-top: 1px solid black; }
     nav ul li {
-      width: 33.33333%;
+      width: 50%;
       height: 50px; }
       nav ul li a {
-        min-width: 33.33333%;
+        min-width: 50%;
         text-decoration: none;
         color: white; }
     nav ul li:hover a {
@@ -177,25 +177,8 @@ footer {
   main #pages .withCalendar {
     margin-left: 0;
     width: 100%; } }
-#tablet-nav {
-  display: none;
-  height: 0;
-  width: 300px;
-  position: fixed;
-  bottom: 100px; }
-  #tablet-nav .phonemenu {
-    width: 100%; }
-    #tablet-nav .phonemenu li {
-      height: 50px;
-      margin-bottom: 1px;
-      background-color: #76b82a;
-      width: 100%; }
-      #tablet-nav .phonemenu li a {
-        width: 100%;
-        text-decoration: none;
-        color: white; }
-    #tablet-nav .phonemenu li:hover {
-      background-color: #c0c0c0; }
+.tabletlink {
+  visibility: collapse; }
 
 .hidden {
   display: none !important; }

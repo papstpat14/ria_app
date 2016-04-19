@@ -1,9 +1,12 @@
-# Design fertigstellen **Papst**
-# Wetter - wann solltest du was für die FH tun **Schalk**
-# Mergen von Design-Code **Kainz**
+# TODO
+- Wetter (Schalk)
+- Designoptimierung (Papst)
+- UI-Tests (e.g. selenium) (macht kein Sinn vor Designoptimierung)
+- Performance optimisation (Minifying JS Files)
+- Documentation (readme, install, poster, source-docu) and mock-up data
+- Beautifying
+- Vl Vibration (bei Benachrichtigung)
 
-# OFFEN-TODO
-## Offline functionality:
-    * trivial
-## Performance optimisation (e.g.: thumbs nails, compressed files).
-## UI-Tests (e.g. selenium).
+
+offline manifest (Schalk)
+vibration (Kainz)
