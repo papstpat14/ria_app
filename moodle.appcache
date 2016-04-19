@@ -1,0 +1,16 @@
+CACHE MANIFEST
+# v1
+
+index.html
+calendar.html
+/favicon.ico
+js/handlebars.min-latest.js
+css/reset.css
+css/normalize.css
+sass/body.css
+sass/login.css
+sass/main.css
+sass/course.css
+
+NETWORK:
+*
