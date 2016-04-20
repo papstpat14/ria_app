@@ -1,7 +1,11 @@
 var widthSmartphone=760;
 var widthTablet=1000;
 
-
+/**
+ * Alternative notification via altert when notify is not supported
+ * @param text notification
+ * @param error error returned from notification api
+ */
 function alertNotify(text,error)
 {
     alert(text+"\n"+"You are receiving this alert because: "+error);
@@ -13,6 +17,8 @@ function alertNotify(text,error)
  */
 
 function notify(text) {
+    if(text instanceof Error)
+        vibrate();
     if (!("Notification" in window)) {
         alertNotify(text,"Notifications not supported");
     }
@@ -257,6 +263,25 @@ function handleEvent(appointment)
 }
 
 /**
+ * Setup vibration api
+ */
+function setupVibration()
+{
+    // enable vibration support
+    navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+}
+
+/**
+ * Vibrate 1 second if possible
+ */
+function vibrate()
+{
+    if (navigator.vibrate) {
+        navigator.vibrate(1000);
+    }
+}
+
+/**
  * window initialization function
  */
 window.onload=function()
@@ -276,9 +301,8 @@ window.onload=function()
     $("#filelink").click(showFiles);
     $("#filesec").click(showFiles);
     $("#btLogin").click(handleLogin);
-
+    setupVibration();
     notify("Moodle is now ready");
-
 };
 
 /**
@@ -304,6 +328,11 @@ function registerCalendarFunction(func)
     });
 }
 
+/**
+ * Handle press on course button
+ * @param course course to be loaded
+ * @returns {Function} function to be executed on press
+ */
 function handleCourse(course)
 {
     return function()
