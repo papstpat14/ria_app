@@ -100,7 +100,25 @@ function showPage(page,withCalendar,withNav,className)
             hide(phonenav.item(i));
 
     document.getElementById("show-menu").checked=false;
+    adjustNav();
 }
+
+/**
+ * adjusts the size of main depending on the size of the navigation menu
+ */
+function adjustNav()
+{
+    $(".bodyheight").each(function(index,value)
+    {
+        var navHeight=0;
+        $("nav").each(function(index,value)
+        {
+           navHeight=value.clientHeight;
+        });
+        value.setAttribute("style","min-height:calc(100vh - "+(201+navHeight)+"px)");
+    });
+}
+
 /**
  * Handles resize events to correctly handle the ui
  */
@@ -119,7 +137,7 @@ window.onresize=function()
         show($("#files"));
         show($("#grades"));
     }
-
+    adjustNav();
 };
 /**
  * Initializes course page, sets up pages
