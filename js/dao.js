@@ -138,7 +138,11 @@ function DaoGetGrades(courseid, assignmentnames,callback)
         DaoLoadGrades(courseid,assignmentnames,callback);
     }
 }
-
+/**
+ * Get course details
+ * @param courseid course id
+ * @param callback
+ */
 function DaoGetDetails(courseid, callback)
 {
     if (!storage || localStorage.getItem("details_" + courseid) == null) {
@@ -261,7 +265,11 @@ function DaoLoadGrades(courseid,assignmentnames,callback)
         }
     });
 }
-
+/**
+ * Loads course details from network (no cache)
+ * @param courseid
+ * @param callback
+ */
 function DaoLoadDetails(courseid,callback)
 {
     getCourseDetails(courseid,function(details)

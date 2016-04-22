@@ -23,7 +23,10 @@ function loadCourses()
         });
     }
 }
-
+/**
+ * loads course details into cache
+ * @param courseid
+ */
 function loadDetails(courseid)
 {
     if(inprogress["details_"+courseid]==undefined||!inprogress["details_"+courseid])
