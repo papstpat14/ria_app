@@ -115,11 +115,22 @@ nav {
   .basicCalendar > section h2, main #calendar > section h2 {
     padding-bottom: 4px; }
   .basicCalendar .assignments .assignment, main #calendar .assignments .assignment {
-    border-top: 1px solid #232323;
+    /*border-top:1px solid $color-background-footer;*/
     padding-top: 2px;
     padding-bottom: 2px; }
     .basicCalendar .assignments .assignment span, main #calendar .assignments .assignment span {
+      padding: 5px;
       display: block; }
+    .basicCalendar .assignments .assignment span:nth-child(odd), main #calendar .assignments .assignment span:nth-child(odd) {
+      text-align: center;
+      font-weight: bold;
+      border-bottom: 1px solid #232323;
+      border-bottom-width: thin; }
+  .basicCalendar .assignments section:nth-child(odd), main #calendar .assignments section:nth-child(odd) {
+    border-top: 1px solid #232323;
+    border-bottom: 1px solid #232323; }
+  .basicCalendar .assignments section:nth-child(even), main #calendar .assignments section:nth-child(even) {
+    background-color: #80D71D; }
 
 main {
   position: relative;

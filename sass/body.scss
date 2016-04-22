@@ -109,12 +109,26 @@ nav{
   {
     .assignment
     {
-      border-top:1px solid $color-background-footer;
+      /*border-top:1px solid $color-background-footer;*/
       padding-top:2px;
       padding-bottom:2px;
       span{
+        padding: 5px;
         display:block;
       }
+      span:nth-child(odd){
+        text-align: center;
+        font-weight: bold;
+        border-bottom: 1px solid $color-background-footer;
+        border-bottom-width: thin;
+      }
+    }
+    section:nth-child(odd){
+      border-top:1px solid $color-background-footer;
+      border-bottom:1px solid $color-background-footer;
+    }
+    section:nth-child(even){
+      background-color: $color-background-ass-two;
     }
   }
 }

@@ -56,9 +56,19 @@
 .coursepage {
   position: relative;
   padding-right: 200px;
-  display: block; }
+  display: block;
+  padding-top: 10px; }
   .coursepage h1 {
     margin-top: 0; }
+  .coursepage #ulFiles {
+    border: 1px solid #232323; }
+    .coursepage #ulFiles li:nth-child(even) {
+      background-color: #76b82a; }
+    .coursepage #ulFiles li {
+      height: 50px;
+      vertical-align: middle;
+      line-height: 50px;
+      border-bottom: 1px solid #232323; }
   .coursepage #grades {
     position: absolute;
     top: 0;
@@ -67,8 +77,17 @@
     background-color: #76b82a;
     bottom: 0;
     display: block; }
-    .coursepage #grades table tr th, .coursepage #grades table tr td {
-      text-align: center; }
+    .coursepage #grades table {
+      border-bottom: 1px solid #232323; }
+      .coursepage #grades table tr td, .coursepage #grades table tr th:nth-child(even) {
+        border-left: 1px solid #232323; }
+      .coursepage #grades table tr th, .coursepage #grades table tr td {
+        text-align: center; }
+      .coursepage #grades table tr:nth-child(odd) {
+        border-top: 1px solid #232323;
+        border-bottom: 1px solid #232323; }
+      .coursepage #grades table tr:nth-child(even) {
+        background-color: #80D71D; }
 
 @media screen and (max-width: 1000px) {
   .coursepage {

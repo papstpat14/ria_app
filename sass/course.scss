@@ -12,6 +12,19 @@
   h1{
     margin-top:0;
   }
+  padding-top: 10px;
+  #ulFiles{
+    border: 1px solid $color-background-footer;
+    li:nth-child(even){
+      background-color: $color-background-special;
+    }
+    li{
+      height: 50px;
+      vertical-align: middle;
+      line-height: 50px;
+      border-bottom: 1px solid $color-background-footer;
+    }
+  }
   #grades{
     position:absolute;
     top:0;
@@ -22,10 +35,22 @@
     @extend .central-block;
     display:block;
     table{
+      border-bottom: 1px solid $color-background-footer;
       tr{
+        td,th:nth-child(even)
+        {
+          border-left: 1px solid $color-background-footer;
+        }
         th,td{
           text-align:center;
         }
+      }
+      tr:nth-child(odd){
+        border-top:1px solid $color-background-footer;
+        border-bottom:1px solid $color-background-footer;
+      }
+      tr:nth-child(even){
+        background-color: $color-background-ass-two;
       }
     }
   }
