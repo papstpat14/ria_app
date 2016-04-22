@@ -122,14 +122,12 @@ nav{
 main{
   position:relative;
   background-color: $color-background-normal;
-  @extend .bodyheight;
   #calendar{
     border-top:2px solid $color-background-footer;
     width:300px;
     float:left;
     overflow:auto;
     @extend .clearfix;
-    @extend .bodyheight;
     position:absolute;
     @extend .basicCalendar;
   }
