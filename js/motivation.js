@@ -1,6 +1,7 @@
 /*
  Creator: Schalk
  */
+"use strict"
 //TODO replace console logs with actual logic
 /*
  test methods (temporary)

@@ -1,6 +1,7 @@
 /*
  Creator: Kainz
  */
+"use strict"
 var inprogress = new Array();
 /**
  * loads all courses

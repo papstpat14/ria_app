@@ -1,7 +1,7 @@
 /*
  Creator: Kainz
  */
-
+"use strict"
 var widthSmartphone=760;
 var widthTablet=1000;
 

@@ -1,6 +1,7 @@
 /*
  Creator: Kainz
  */
+"use strict"
 var storage=false;
 
 /**

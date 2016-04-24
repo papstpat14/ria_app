@@ -1,6 +1,7 @@
 /*
 Creator: Schalk
  */
+"use strict"
 const TOKEN = "token=";
 const USERNAME = "username=";
 const USERID = "userid=";
@@ -100,7 +101,7 @@ function isLoggedIn(){
  * @param callback
  */
 function getAllCourses(callback) {
-    url = createUrl("core_enrol_get_users_courses", {"userid": getCookieByName(USERID)});
+    var url = createUrl("core_enrol_get_users_courses", {"userid": getCookieByName(USERID)});
     if (url != null) {
         $.get(url, function (data, status) {
             var courses = [];
