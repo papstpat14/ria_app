@@ -1,3 +1,6 @@
+/*
+ Creator: Schalk
+ */
 //TODO replace console logs with actual logic
 /*
  test methods (temporary)

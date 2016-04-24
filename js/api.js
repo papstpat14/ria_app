@@ -1,3 +1,6 @@
+/*
+Creator: Schalk
+ */
 const TOKEN = "token=";
 const USERNAME = "username=";
 const USERID = "userid=";

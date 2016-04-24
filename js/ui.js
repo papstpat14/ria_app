@@ -1,3 +1,7 @@
+/*
+ Creator: Kainz
+ */
+
 var widthSmartphone=760;
 var widthTablet=1000;
 

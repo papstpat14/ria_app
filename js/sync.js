@@ -1,3 +1,6 @@
+/*
+ Creator: Kainz
+ */
 var inprogress = new Array();
 /**
  * loads all courses

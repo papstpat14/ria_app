@@ -1,4 +1,6 @@
-
+/*
+ Creator: Kainz
+ */
 var storage=false;
 
 /**
