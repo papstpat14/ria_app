@@ -8,7 +8,8 @@
  */
 function testGetWeatherMotivation() {
     getWeatherMotivation(function (data) {
-        console.log(data);
+        //console.log(data);
+        document.getElementById('motivation').innerHTML=data;
     })
 }
 //#####################################################################################################################

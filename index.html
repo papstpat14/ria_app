@@ -14,6 +14,7 @@
         <script type="text/javascript" src="js/dao.min.js"></script>
         <script type="text/javascript" src="js/sync.min.js"></script>
         <script type="text/javascript" src="js/handlebars.min-latest.js"></script>
+        <script type="text/javascript" src="js/motivation.js" defer></script>
         <link rel="stylesheet" href="css/reset.min.css">
         <link rel="stylesheet" href="css/normalize.min.css">
         <link rel="stylesheet" href="sass/body.css">
@@ -62,7 +63,7 @@
         <header class="row">
             <a id="backlink" href="#">RIA-Moodle</a>
             <div id="logout">
-                <a id="logoutlink" href="#">X</a>
+                <a id="logoutlink" href="#"><img title="RIA-Moodle verlassen!" alt="exit_logo" src="img/exit.svg"/></a>
             </div>
         </header>
         <nav class="row">
@@ -79,6 +80,9 @@
         </nav>
         <main class="row bodyheight">
             <section id="calendar">
+                <section class="weather">
+                    <p id="motivation"></p>
+                </section>
                 <section class="real-calendar">
                     <iframe src="calendar.html"  width="100%" name="calendar" class="calendarframe" scrolling="no" seamless="seamless">
                     </iframe>

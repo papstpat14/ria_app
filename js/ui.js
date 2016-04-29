@@ -190,6 +190,7 @@ function showMain()
     DaoGetCourses(coursesLoaded);
     showAllAssignments();
     show($("#logout"));
+    testGetWeatherMotivation();
 }
 /**
  * shows the course page

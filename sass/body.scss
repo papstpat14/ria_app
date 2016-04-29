@@ -34,13 +34,17 @@ header{
   }
   #logout
   {
-    border-left:1px solid black;
+    //border-left:1px solid black;
     height:$height-header;
     @extend .central-block;
     right:0;
     margin:0;
+    padding-right: 10px;
     position:absolute;
     width:70px;
+    img{
+      width: 100%;
+    }
   }
 
 }
@@ -150,6 +154,16 @@ main{
       .assignments{
         border-bottom: 1px solid black;
       }
+    .weather{
+      text-shadow: 2px 2px 8px $color-background-special;
+      background-color: $color-background-footer;
+      font-style: italic;
+      color: $color-background-normal;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 5px 0 5px 0;
+    }
   }
   #pages
   {
