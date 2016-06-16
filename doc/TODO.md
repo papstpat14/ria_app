@@ -1,4 +1,4 @@
 # TODO
-- Wetter (Schalk)
-- Designoptimierung (Papst)
-- UI-Tests (e.g. selenium) (macht kein Sinn vor Designoptimierung)
+- Login Warteschleife
+- Login Fehlermeldung
+- Download von Files geht nicht
