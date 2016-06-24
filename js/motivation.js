@@ -2,17 +2,13 @@
  Creator: Schalk
  */
 "use strict"
-//TODO replace console logs with actual logic
-/*
- test methods (temporary)
- */
+
 function testGetWeatherMotivation() {
     getWeatherMotivation(function (data) {
         //console.log(data);
         document.getElementById('motivation').innerHTML=data;
     })
 }
-//#####################################################################################################################
 
 /**
  * gets the motivation for learning due to the current weather for the current position of the client
