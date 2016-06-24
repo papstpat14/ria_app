@@ -6,43 +6,6 @@ const TOKEN = "token=";
 const USERNAME = "username=";
 const USERID = "userid=";
 
-//TODO replace console logs with actual logic
-/*
-test methods (temporary)
- */
-function testLogin() {
-    var username = $("#username").val();
-    var password = $("#password").val();
-    login(username, password, function (data) {
-        console.log(data);
-    });
-}
-function testGetAllCourses() {
-    getAllCourses(function(data) {
-        console.log(data);
-    });
-}
-function testGetCourseDetails() {
-    var courseId = 1148;
-    getCourseDetails(courseId, function(data) {
-        console.log(data);
-    });
-}
-function testGetCourseAssignments() {
-    var courseId = 1148;
-    getCourseAssignments(courseId, function(data) {
-        console.log(data);
-    });
-}
-function testGetCourseAssignmentGrade() {
-    var courseId = 1148;
-    var assignmentName = "P03 Final Product (before Feb, 4th, 2016)";
-    getCourseAssignmentGrade(courseId, assignmentName, function(data) {
-        console.log(data);
-    });
-}
-//#####################################################################################################################
-
 /**
  * tries to login in a user on moodle elearn
  * @param username
