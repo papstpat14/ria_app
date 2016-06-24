@@ -2,6 +2,7 @@
  Creator: Schalk
  */
 
+
 // change url if needed
 var host = 'http://localhost:63342/ria_app/index.html';
 
@@ -14,17 +15,29 @@ var path = require('chromedriver').path;
 // create selenium service
 var service = new chrome.ServiceBuilder(path).build();
 chrome.setDefaultService(service);
-var browser = new webdriver.Builder()
-    .withCapabilities(webdriver.Capabilities.chrome())
+var options = new chrome.Options();
+// deactivate chrome notifications because they are not supported in selenium
+options.setUserPreferences({'profile.default_content_setting_values.notifications': 2});
+var browser = new webdriver.Builder().
+    withCapabilities(options.toCapabilities())
     .build();
 
-// tests
+// open browser url
+browser.get(host);
+
+// Tests
+//######################################################
+// test wrong user
 testLogin('hans', 'hans', false);
-// Your credentials
+// test the user with YOUR CREDENTIALS!!
 testLogin('***', '***', true);
+// test data refresh
+testDataRefresh();
+//######################################################
 
 // quit the browser
 browser.quit();
+
 
 /**
  * tests a login with the provided credentials
@@ -33,14 +46,34 @@ browser.quit();
  * @param login: true if login was successful
  */
 function testLogin(username, pw, login) {
-    // open browser url
-    browser.get(host);
-    browser.findElement(webdriver.By.id('username')).sendKeys(username);
-    browser.findElement(webdriver.By.id('password')).sendKeys(pw);
+    var userField = browser.findElement(webdriver.By.id('username'));
+    var pwField = browser.findElement(webdriver.By.id('password'));
+    userField.clear();
+    pwField.clear();
+    userField.sendKeys(username);
+    pwField.sendKeys(pw);
     browser.findElement(webdriver.By.id('btLogin')).click().then(function() {
-        browser.sleep(2500);
+        browser.sleep(7000);
         browser.manage().getCookies().then(function(cookies) {
             assert(cookies.length > 0 == login);
+        });
+    });
+}
+
+/**
+ * checks if a data refresh happens successfully
+ * checks if course "Systemmanagement" is in the list
+ */
+function testDataRefresh() {
+    browser.sleep(10000);
+    browser.findElement(webdriver.By.id('course1147')).then(function(course) {
+        assert(course != null);
+        course.findElement(webdriver.By.tagName('div')).then(function(div) {
+            assert(div != null);
+            course.getInnerHtml().then(function(inner) {
+                assert(inner != null);
+                assert(inner.indexOf('Systemmanagement') != -1);
+            });
         });
     });
 }
