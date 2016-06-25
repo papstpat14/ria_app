@@ -53,7 +53,7 @@ function testLogin(username, pw, login) {
     userField.sendKeys(username);
     pwField.sendKeys(pw);
     browser.findElement(webdriver.By.id('btLogin')).click().then(function() {
-        browser.sleep(7000);
+        browser.sleep(5000);
         browser.manage().getCookies().then(function(cookies) {
             assert(cookies.length > 0 == login);
         });
@@ -65,7 +65,9 @@ function testLogin(username, pw, login) {
  * checks if course "Systemmanagement" is in the list
  */
 function testDataRefresh() {
-    browser.sleep(10000);
+    browser.wait(function() {
+        return browser.isElementPresent(webdriver.By.id('course1147'));
+    }, 10000);
     browser.findElement(webdriver.By.id('course1147')).then(function(course) {
         assert(course != null);
         course.findElement(webdriver.By.tagName('div')).then(function(div) {
