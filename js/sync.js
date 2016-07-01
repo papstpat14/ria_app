@@ -56,10 +56,13 @@ function loadAllAssignments(courseids)
         DaoLoadAllAssignments(courseids,function(assignments)
         {
             var courseAssigments = {};
+            courseids.forEach(function(courseid)
+            {
+                if(courseAssigments[courseid]==undefined||courseAssigments[courseid]==null){
+                    courseAssigments[courseid]=[];
+                }
+            });
             assignments.forEach(function(assignment){
-               if(courseAssigments[assignment.courseid]==undefined||courseAssigments[assignment.courseid]==null){
-                   courseAssigments[assignment.courseid]=[];
-               }
                courseAssigments[assignment.courseid].push(assignment);
             });
             for(var key in courseAssigments)
